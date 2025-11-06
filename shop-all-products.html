@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHOP ALL - QUEEN LUCY MERCH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ec4899;
+            --primary-dark: #991b1b;
+            --accent: #FFD700;
+            --black: #0A0A0A;
+            --gray-dark: #1A1A1A;
+            --white: #FFFFFF;
+            --neon-pink: #FF006E;
+            --neon-purple: #8B00FF;
+            --neon-blue: #00F0FF;
+            --card-bg: rgba(18, 18, 18, 0.95);
+            --border: rgba(255, 255, 255, 0.1);
+            --gold: #fbbf24;
+        }
+
+        body {
+            font-family: 'Arimo', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.active {
+            transform: scale(1.5);
+            background: var(--accent);
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 0.8px solid rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            color: var(--black);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: -0.4px;
+            font-weight: 400;
+        }
+
+        .logo .crown {
+            color: var(--accent);
+            font-size: 16px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--black);
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 0.35px;
+            text-transform: uppercase;
+            position: relative;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            position: relative;
+        }
+
+        .icon-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 40px 80px 96px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 48px;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .page-subtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filters */
+        .filters-section {
+            margin-bottom: 40px;
+            padding: 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(20px);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            align-items: end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-label {
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .filter-select {
+            background: var(--black);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 12px 16px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+        }
+
+        .filter-pills {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .filter-pill {
+            padding: 8px 16px;
+            background: var(--black);
+            border: 1px solid var(--border);
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .filter-pill:hover,
+        .filter-pill.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.4);
+        }
+
+        /* Products Grid */
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .results-count {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .sort-select {
+            background: var(--black);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .product-card {
+            background: var(--gray-dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(236, 72, 153, 0.3);
+            border-color: var(--primary);
+        }
+
+        .product-image {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: var(--black);
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 4px 10px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            border: 1.6px solid var(--black);
+        }
+
+        .badge-limited {
+            background: var(--accent);
+            color: var(--black);
+        }
+
+        .badge-restocked {
+            background: var(--neon-purple);
+            color: var(--white);
+        }
+
+        .badge-new {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .product-info {
+            padding: 16px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            color: var(--white);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .product-price {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* Load More */
+        .load-more-section {
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        .load-more-btn {
+            padding: 16px 32px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .load-more-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+        }
+
+        /* Cart Sidebar */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cart-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid var(--border);
+            z-index: 9999;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h2 {
+            font-size: 18px;
+            letter-spacing: 2px;
+            color: var(--gold);
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .cart-close:hover {
+            color: var(--primary);
+            transform: scale(1.2);
+        }
+
+        .cart-content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 48px 0;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .cart-empty h3 {
+            font-size: 16px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            color: var(--gold);
+        }
+
+        .cart-empty p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .cart-footer {
+            padding: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .cart-total {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-align: center;
+            color: var(--gold);
+        }
+
+        .cart-checkout-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cart-checkout-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 20px 40px;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 16px;
+            }
+
+            .page-title {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="queen-lucy-merch-store.html" class="logo">
+                <span class="crown">♕</span>
+                <span>QUEEN LUCY</span>
+                <span class="crown">♕</span>
+            </a>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="shop-all-products.html">SHOP ALL</a></li>
+                    <li><a href="shop-all-products.html?category=hoodies">HOODIES & CREWS</a></li>
+                    <li><a href="shop-all-products.html?category=tees">TEES & LONG SLEEVES</a></li>
+                    <li><a href="shop-all-products.html?category=accessories">ACCESSORIES</a></li>
+                    <li><a href="shop-all-products.html?category=stickers">STICKERS</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-icons">
+                <div class="icon-btn">🔍</div>
+                <div class="icon-btn">👤</div>
+                <div class="icon-btn">❤️</div>
+                <div class="icon-btn" id="cartIcon">🛒<span id="cartBadge" class="cart-badge">0</span></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb">
+            <a href="queen-lucy-merch-store.html">Home</a>
+            <span>></span>
+            <span id="breadcrumbCategory">Shop All</span>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title" id="pageTitle">SHOP ALL PRODUCTS</h1>
+            <p class="page-subtitle">Every piece in the Queen Lucy dynasty. Find your throne.</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-section">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label class="filter-label">Category</label>
+                    <div class="filter-pills">
+                        <a href="shop-all-products.html" class="filter-pill active" data-category="all">All</a>
+                        <a href="shop-all-products.html?category=hoodies" class="filter-pill" data-category="hoodies">Hoodies</a>
+                        <a href="shop-all-products.html?category=tees" class="filter-pill" data-category="tees">Tees</a>
+                        <a href="shop-all-products.html?category=accessories" class="filter-pill" data-category="accessories">Accessories</a>
+                        <a href="shop-all-products.html?category=stickers" class="filter-pill" data-category="stickers">Stickers</a>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Sort By</label>
+                    <select class="filter-select" id="sortSelect">
+                        <option value="featured">Featured</option>
+                        <option value="price_low">Price: Low to High</option>
+                        <option value="price_high">Price: High to Low</option>
+                        <option value="newest">Newest</option>
+                        <option value="name">Name A-Z</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Header -->
+        <div class="products-header">
+            <span class="results-count" id="resultsCount">Showing all products</span>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be populated by JavaScript -->
+        </div>
+
+        <!-- Load More -->
+        <div class="load-more-section">
+            <button class="load-more-btn" id="loadMoreBtn">LOAD MORE LEGENDS</button>
+        </div>
+    </main>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>YOUR THRONE</h2>
+            <button class="cart-close" id="cartClose">×</button>
+        </div>
+        <div class="cart-content" id="cartContent">
+            <div class="cart-empty">
+                <div class="empty-icon">👑</div>
+                <h3>YOUR THRONE AWAITS</h3>
+                <p>Your legendary collection starts here</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>TOTAL: $<span id="cartTotal">0</span> AUD</span>
+            </div>
+            <button class="cart-checkout-btn">CLAIM THRONE</button>
+        </div>
+    </div>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let followerX = 0, followerY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animate() {
+            cursorX += (mouseX - cursorX) * 0.3;
+            cursorY += (mouseY - cursorY) * 0.3;
+
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+
+            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+            follower.style.transform = `translate(${followerX}px, ${followerY}px)`;
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Cursor interactions
+        const interactiveElements = document.querySelectorAll('a, button, .icon-btn, .product-card, .filter-pill');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        });
+
+        // Cart functionality
+        const cartIcon = document.getElementById('cartIcon');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const cartClose = document.getElementById('cartClose');
+        const cartBadge = document.getElementById('cartBadge');
+
+        function openCart() {
+            cartSidebar.classList.add('active');
+            cartOverlay.classList.add('active');
+        }
+
+        function closeCart() {
+            cartSidebar.classList.remove('active');
+            cartOverlay.classList.remove('active');
+        }
+
+        cartIcon.addEventListener('click', openCart);
+        cartClose.addEventListener('click', closeCart);
+        cartOverlay.addEventListener('click', closeCart);
+
+        // Initialize cart state
+        let cartState = {
+            items: [],
+            total: 0,
+            count: 0
+        };
+
+        function updateCartBadge() {
+            cartBadge.textContent = cartState.count;
+            cartBadge.style.display = cartState.count > 0 ? 'flex' : 'none';
+        }
+
+        // Load cart from localStorage
+        function loadCart() {
+            const saved = localStorage.getItem('queenLucyCart');
+            if (saved) {
+                cartState = JSON.parse(saved);
+                updateCartBadge();
+            }
+        }
+
+        // Save cart to localStorage
+        function saveCart() {
+            localStorage.setItem('queenLucyCart', JSON.stringify(cartState));
+        }
+
+        // Products data
+        const allProducts = [
+            {
+                id: 'neon-nights-hoodie',
+                name: 'NEON NIGHTS HOODIE',
+                price: 89,
+                colors: 3,
+                category: 'hoodies',
+                image: 'https://www.figma.com/api/mcp/asset/8901d254-e736-42f1-88fc-531aef5a3d63',
+                badge: 'LIMITED'
+            },
+            {
+                id: 'tokyo-drift-hoodie',
+                name: 'TOKYO DRIFT HOODIE',
+                price: 95,
+                colors: 3,
+                category: 'hoodies',
+                image: 'https://www.figma.com/api/mcp/asset/3c4a3222-0f61-4de8-8638-87d5b9a9a680',
+                badge: null
+            },
+            {
+                id: 'pink-dynasty-crewneck',
+                name: 'PINK DYNASTY CREWNECK',
+                price: 79,
+                colors: 2,
+                category: 'hoodies',
+                image: 'https://www.figma.com/api/mcp/asset/f2456ad5-510f-4f1a-97e1-4337a8aa640f',
+                badge: 'RESTOCKED'
+            },
+            {
+                id: 'cyber-queen-hoodie',
+                name: 'CYBER QUEEN HOODIE',
+                price: 92,
+                colors: 2,
+                category: 'hoodies',
+                image: 'https://www.figma.com/api/mcp/asset/8901d254-e736-42f1-88fc-531aef5a3d63',
+                badge: null
+            },
+            {
+                id: 'royal-crown-tee',
+                name: 'ROYAL CROWN TEE',
+                price: 45,
+                colors: 4,
+                category: 'tees',
+                image: 'https://www.figma.com/api/mcp/asset/7048913e-c9a9-41e8-b665-ba9bc147f618',
+                badge: 'NEW'
+            },
+            {
+                id: 'dynasty-beanie',
+                name: 'DYNASTY BEANIE',
+                price: 35,
+                colors: 3,
+                category: 'accessories',
+                image: 'https://www.figma.com/api/mcp/asset/5bf081a0-6ecc-4884-ae22-0cb03c5adc77',
+                badge: null
+            },
+            {
+                id: 'queen-sticker-pack',
+                name: 'QUEEN STICKER PACK',
+                price: 15,
+                colors: 1,
+                category: 'stickers',
+                image: 'https://www.figma.com/api/mcp/asset/30bee9a1-ed9b-44a5-8aa6-825f55ecb8c8',
+                badge: 'LIMITED'
+            }
+        ];
+
+        let filteredProducts = [...allProducts];
+        let displayedProducts = [];
+        let currentPage = 1;
+        const productsPerPage = 6;
+
+        // URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryParam = urlParams.get('category');
+
+        // Initialize page based on URL parameters
+        function initializePage() {
+            if (categoryParam) {
+                filterByCategory(categoryParam);
+                updateActiveFilter(categoryParam);
+                updatePageTitle(categoryParam);
+            } else {
+                displayProducts();
+            }
+            loadCart();
+        }
+
+        function filterByCategory(category) {
+            if (category === 'all' || !category) {
+                filteredProducts = [...allProducts];
+            } else {
+                filteredProducts = allProducts.filter(product => product.category === category);
+            }
+            currentPage = 1;
+            displayProducts();
+            updateResultsCount();
+        }
+
+        function updateActiveFilter(category) {
+            document.querySelectorAll('.filter-pill').forEach(pill => {
+                pill.classList.remove('active');
+            });
+            const activePill = document.querySelector(`[data-category="${category}"]`) ||
+                             document.querySelector(`[data-category="all"]`);
+            if (activePill) {
+                activePill.classList.add('active');
+            }
+        }
+
+        function updatePageTitle(category) {
+            const titles = {
+                hoodies: 'HOODIES & CREWS',
+                tees: 'TEES & LONG SLEEVES',
+                accessories: 'ACCESSORIES',
+                stickers: 'STICKERS'
+            };
+
+            const title = titles[category] || 'SHOP ALL PRODUCTS';
+            document.getElementById('pageTitle').textContent = title;
+            document.getElementById('breadcrumbCategory').textContent = title;
+        }
+
+        function updateResultsCount() {
+            const count = filteredProducts.length;
+            const countText = categoryParam ?
+                `Showing ${count} ${categoryParam} products` :
+                `Showing all ${count} products`;
+            document.getElementById('resultsCount').textContent = countText;
+        }
+
+        function displayProducts() {
+            const startIndex = 0;
+            const endIndex = currentPage * productsPerPage;
+            displayedProducts = filteredProducts.slice(startIndex, endIndex);
+
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            displayedProducts.forEach(product => {
+                const productCard = createProductCard(product);
+                grid.appendChild(productCard);
+            });
+
+            // Update load more button
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (endIndex >= filteredProducts.length) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'block';
+            }
+        }
+
+        function createProductCard(product) {
+            const card = document.createElement('a');
+            card.href = `queen-lucy-product-detail.html?id=${product.id}`;
+            card.className = 'product-card';
+
+            const badgeHTML = product.badge ?
+                `<div class="product-badge badge-${product.badge.toLowerCase()}">${product.badge}</div>` : '';
+
+            card.innerHTML = `
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name}">
+                    ${badgeHTML}
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">${product.name}</h3>
+                    <div class="product-meta">
+                        <span class="product-price">$${product.price} AUD</span>
+                        <span class="colors">${product.colors} colour${product.colors > 1 ? 's' : ''}</span>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // Load more functionality
+        document.getElementById('loadMoreBtn').addEventListener('click', () => {
+            currentPage++;
+            displayProducts();
+        });
+
+        // Sort functionality
+        document.getElementById('sortSelect').addEventListener('change', (e) => {
+            const sortBy = e.target.value;
+            sortProducts(sortBy);
+        });
+
+        function sortProducts(sortBy) {
+            switch (sortBy) {
+                case 'price_low':
+                    filteredProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price_high':
+                    filteredProducts.sort((a, b) => b.price - a.price);
+                    break;
+                case 'name':
+                    filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'newest':
+                    // For demo, reverse the array (newest first)
+                    filteredProducts.reverse();
+                    break;
+                default:
+                    // Featured - restore original order
+                    filteredProducts = allProducts.filter(p =>
+                        categoryParam ? p.category === categoryParam : true
+                    );
+            }
+            currentPage = 1;
+            displayProducts();
+        }
+
+        // Initialize the page
+        initializePage();
+    </script>
+</body>
+</html>

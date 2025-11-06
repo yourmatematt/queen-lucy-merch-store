@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUEEN LUCY MERCH - Official Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #ec4899;
+            --primary-dark: #991b1b;
+            --accent: #FFD700;
+            --black: #0A0A0A;
+            --gray-dark: #1A1A1A;
+            --white: #FFFFFF;
+            --neon-pink: #FF006E;
+            --neon-purple: #8B00FF;
+            --neon-blue: #00F0FF;
+            --card-bg: rgba(18, 18, 18, 0.95);
+            --border: rgba(255, 255, 255, 0.1);
+            --gold: #fbbf24;
+        }
+        
+        body {
+            font-family: 'Arimo', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            cursor: none;
+        }
+        
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        }
+        
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+            mix-blend-mode: difference;
+        }
+        
+        .cursor.active {
+            transform: scale(1.5);
+            background: var(--accent);
+        }
+        
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--black);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 30px;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader {
+            width: 80px;
+            height: 80px;
+            position: relative;
+        }
+        
+        .loader::before,
+        .loader::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 3px solid transparent;
+            border-top: 3px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        .loader::after {
+            border-top: 3px solid var(--primary);
+            animation: spin 1.5s linear infinite reverse;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 4px;
+            color: var(--accent);
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* Promo Bar */
+        .promo-bar {
+            background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-dark) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .promo-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 200%; }
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .promo-text {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3.9px;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+        
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 0.8px solid rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 40px rgba(185, 34, 52, 0.1);
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            color: var(--black);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: -0.4px;
+            font-weight: 400;
+        }
+        
+        .logo .crown {
+            color: var(--accent);
+            font-size: 16px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--black);
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 0.35px;
+            text-transform: uppercase;
+            position: relative;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .header-icons {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        
+        .icon-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 600px;
+            background: var(--black);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(236, 72, 153, 0.2), transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(139, 0, 255, 0.2), transparent 50%);
+            animation: bgPulse 8s infinite;
+        }
+        
+        @keyframes bgPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 96px 80px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-content .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            letter-spacing: 5.6px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        
+        .hero-title {
+            font-family: 'Arimo', sans-serif;
+            font-size: 96px;
+            line-height: 96px;
+            letter-spacing: -2.4px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        
+        .hero-title .line1 { color: var(--white); }
+        .hero-title .line2 { 
+            color: var(--primary);
+            text-shadow: 0 0 30px rgba(236, 72, 153, 0.8);
+        }
+        .hero-title .line3 { 
+            color: var(--accent);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+        }
+        
+        .hero-subtitle {
+            font-size: 20px;
+            line-height: 32.5px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 32px;
+            max-width: 447px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2.8px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+            border: 1.6px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            box-shadow: 0 15px 40px rgba(236, 72, 153, 0.6);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: var(--white);
+            color: var(--accent);
+            border: 0.8px solid var(--accent);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: var(--black);
+            transform: translateY(-2px);
+        }
+        
+        .hero-image {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5));
+        }
+        
+        .hero-image img {
+            width: 100%;
+            max-width: 480px;
+            height: auto;
+            object-fit: contain;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Products Section */
+        .products-section {
+            padding: 96px 80px;
+            background: linear-gradient(180deg, var(--black) 0%, var(--gray-dark) 100%);
+        }
+        
+        .section-header {
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            letter-spacing: -0.4px;
+            text-transform: uppercase;
+            color: var(--white);
+        }
+        
+        .nav-arrows {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .arrow-btn {
+            width: 36px;
+            height: 36px;
+            background: var(--white);
+            border: 0.8px solid rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .arrow-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
+            transform: scale(1.1);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 16px;
+        }
+        
+        .product-card {
+            background: var(--gray-dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(236, 72, 153, 0.3);
+            border-color: var(--primary);
+        }
+        
+        .product-image {
+            position: relative;
+            width: 100%;
+            height: 426px;
+            background: var(--black);
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 4px 10px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            border: 1.6px solid var(--black);
+        }
+        
+        .badge-limited {
+            background: var(--accent);
+            color: var(--black);
+        }
+        
+        .badge-restocked {
+            background: var(--neon-purple);
+            color: var(--white);
+        }
+        
+        .product-info {
+            padding: 12px;
+        }
+        
+        .product-name {
+            font-size: 16px;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+        
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Categories Section */
+        .categories-section {
+            padding: 96px 80px;
+            background: var(--black);
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        
+        .category-card {
+            position: relative;
+            height: 315px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .category-card:hover {
+            transform: scale(1.02);
+        }
+        
+        .category-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .category-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.8) 100%);
+        }
+        
+        .category-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px;
+        }
+        
+        .category-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.45px;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+        
+        .category-subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Story Section */
+        .story-section {
+            padding: 96px 80px;
+            background: linear-gradient(180deg, var(--primary-dark) 0%, #881337 50%, var(--black) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .story-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.3;
+            background-image: 
+                repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 40px),
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 40px);
+        }
+        
+        .story-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .story-image-wrapper {
+            position: relative;
+        }
+        
+        .story-image-frame {
+            border: 4px solid var(--accent);
+            padding: 4px;
+            position: relative;
+        }
+        
+        .story-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        
+        .story-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--accent);
+            color: var(--black);
+            padding: 8px 16px;
+            font-size: 16px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+        
+        .story-content .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            letter-spacing: 4.2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        
+        .story-title {
+            font-size: 48px;
+            line-height: 60px;
+            letter-spacing: -1.2px;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 24px;
+        }
+        
+        .story-text {
+            font-size: 18px;
+            line-height: 29.25px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 16px;
+        }
+        
+        /* Social Section */
+        .social-section {
+            padding: 96px 80px;
+            background: var(--black);
+            text-align: center;
+        }
+        
+        .social-title {
+            font-size: 24px;
+            letter-spacing: 2.4px;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+        
+        .social-handle {
+            font-size: 16px;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .social-hashtag {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 48px;
+        }
+        
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .social-image {
+            width: 100%;
+            height: 236px;
+            object-fit: cover;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .social-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(246, 51, 154, 0.5);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--gray-dark);
+            padding: 64px 80px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+        
+        .footer-column h3 {
+            font-size: 16px;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-bottom {
+            border-top: 0.8px solid rgba(255, 255, 255, 0.2);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .social-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            color: var(--primary);
+            transform: scale(1.2);
+        }
+        
+        .footer-legal {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        /* Cart Sidebar */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cart-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid var(--border);
+            z-index: 9999;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h2 {
+            font-size: 18px;
+            letter-spacing: 2px;
+            color: var(--gold);
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .cart-close:hover {
+            color: var(--primary);
+            transform: scale(1.2);
+        }
+
+        .cart-content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 48px 0;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .cart-empty h3 {
+            font-size: 16px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            color: var(--gold);
+        }
+
+        .cart-empty p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .cart-footer {
+            padding: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .cart-total {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-align: center;
+            color: var(--gold);
+        }
+
+        .cart-checkout-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cart-checkout-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-container,
+            .story-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-title {
+                font-size: 48px;
+                line-height: 52px;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .social-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+        <div class="loading-text">LOADING THE THRONE</div>
+    </div>
+    
+    <!-- Promo Bar -->
+    <div class="promo-bar">
+        <p class="promo-text">♕ QUEEN LUCY REIGNS ♕ LIMITED THRONE DROP LIVE ♕ FREE SHIPPING ON $100+</p>
+    </div>
+    
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="queen-lucy-merch-store.html" class="logo">
+                <span class="crown">♕</span>
+                <span>QUEEN LUCY</span>
+                <span class="crown">♕</span>
+            </a>
+            
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="shop-all-products.html">SHOP ALL</a></li>
+                    <li><a href="hoodies-collection.html">HOODIES & CREWS</a></li>
+                    <li><a href="#tees">TEES & LONG SLEEVES</a></li>
+                    <li><a href="#hats">HATS & BEANIES</a></li>
+                    <li><a href="#accessories">ACCESSORIES</a></li>
+                    <li><a href="#stickers">STICKERS & EXTRAS</a></li>
+                    <li><a href="#custom">CUSTOM PRINT</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-icons">
+                <div class="icon-btn">🔍</div>
+                <div class="icon-btn">👤</div>
+                <div class="icon-btn">❤️</div>
+                <div class="icon-btn" id="cartIcon">🛒<span id="cartBadge" class="cart-badge">0</span></div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="badge">
+                    <span>♕</span>
+                    <span>THE DYNASTY BEGINS</span>
+                    <span>♕</span>
+                </div>
+                <h1 class="hero-title">
+                    <div class="line1">BOW TO</div>
+                    <div class="line2">QUEEN</div>
+                    <div class="line3">LUCY</div>
+                </h1>
+                <p class="hero-subtitle">
+                    Where Asian heritage meets street royalty. Rep the crown. Own the night. Join the dynasty.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-primary">★ SHOP THE THRONE ★</a>
+                    <a href="#story" class="btn btn-secondary">THE LEGEND</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="/mnt/user-data/uploads/Lucy_s_Noodles.png" alt="Queen Lucy">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <div class="section-header">
+            <h2 class="section-title">MOST WANTED RIGHT NOW</h2>
+            <div class="nav-arrows">
+                <div class="arrow-btn">←</div>
+                <div class="arrow-btn">→</div>
+            </div>
+        </div>
+        
+        <div class="products-grid">
+            <a href="queen-lucy-product-detail.html?id=neon-nights-hoodie" class="product-card" style="text-decoration: none; color: inherit;">
+                <div class="product-image">
+                    <img src="https://www.figma.com/api/mcp/asset/8901d254-e736-42f1-88fc-531aef5a3d63" alt="NEON NIGHTS HOODIE">
+                    <div class="product-badge badge-limited">LIMITED</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">NEON NIGHTS HOODIE</h3>
+                    <div class="product-meta">
+                        <span class="price">$89 AUD</span>
+                        <span class="colors">3 colours</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="queen-lucy-product-detail.html?id=tokyo-drift-hoodie" class="product-card" style="text-decoration: none; color: inherit;">
+                <div class="product-image">
+                    <img src="https://www.figma.com/api/mcp/asset/3c4a3222-0f61-4de8-8638-87d5b9a9a680" alt="TOKYO DRIFT HOODIE">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">TOKYO DRIFT HOODIE</h3>
+                    <div class="product-meta">
+                        <span class="price">$95 AUD</span>
+                        <span class="colors">3 colours</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="queen-lucy-product-detail.html?id=pink-dynasty-crewneck" class="product-card" style="text-decoration: none; color: inherit;">
+                <div class="product-image">
+                    <img src="https://www.figma.com/api/mcp/asset/f2456ad5-510f-4f1a-97e1-4337a8aa640f" alt="PINK DYNASTY CREWNECK">
+                    <div class="product-badge badge-restocked">RESTOCKED</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">PINK DYNASTY CREWNECK</h3>
+                    <div class="product-meta">
+                        <span class="price">$79 AUD</span>
+                        <span class="colors">2 colours</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="queen-lucy-product-detail.html?id=cyber-queen-hoodie" class="product-card" style="text-decoration: none; color: inherit;">
+                <div class="product-image">
+                    <img src="https://www.figma.com/api/mcp/asset/8901d254-e736-42f1-88fc-531aef5a3d63" alt="CYBER QUEEN HOODIE">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">CYBER QUEEN HOODIE</h3>
+                    <div class="product-meta">
+                        <span class="price">$92 AUD</span>
+                        <span class="colors">2 colours</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <div class="categories-grid">
+            <a href="shop-all-products.html?category=hoodies" class="category-card">
+                <img src="https://www.figma.com/api/mcp/asset/949d3685-1481-4312-935a-8eda995eddef" alt="Hoodies & Crews" class="category-image">
+                <div class="category-overlay"></div>
+                <div class="category-content">
+                    <h3 class="category-title">HOODIES & CREWS</h3>
+                    <p class="category-subtitle">Heavy weight armor</p>
+                </div>
+            </a>
+
+            <a href="shop-all-products.html?category=accessories" class="category-card">
+                <img src="https://www.figma.com/api/mcp/asset/7048913e-c9a9-41e8-b665-ba9bc147f618" alt="Accessories" class="category-image">
+                <div class="category-overlay"></div>
+                <div class="category-content">
+                    <h3 class="category-title">ACCESSORIES</h3>
+                    <p class="category-subtitle">Complete the fit</p>
+                </div>
+            </a>
+
+            <a href="shop-all-products.html?category=stickers" class="category-card">
+                <img src="https://www.figma.com/api/mcp/asset/5bf081a0-6ecc-4884-ae22-0cb03c5adc77" alt="Sticker Vault" class="category-image">
+                <div class="category-overlay"></div>
+                <div class="category-content">
+                    <h3 class="category-title">STICKER VAULT</h3>
+                    <p class="category-subtitle">Tag your territory</p>
+                </div>
+            </a>
+
+            <a href="shop-all-products.html?category=custom" class="category-card">
+                <img src="https://www.figma.com/api/mcp/asset/30bee9a1-ed9b-44a5-8aa6-825f55ecb8c8" alt="Custom Print" class="category-image">
+                <div class="category-overlay"></div>
+                <div class="category-content">
+                    <h3 class="category-title">CUSTOM PRINT W/ QUEEN LUCY</h3>
+                    <p class="category-subtitle">Make it legendary</p>
+                </div>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Story Section -->
+    <section class="story-section" id="story">
+        <div class="story-bg"></div>
+        <div class="story-container">
+            <div class="story-image-wrapper">
+                <div class="story-image-frame">
+                    <img src="/mnt/user-data/uploads/Lucy_s_Noodles.png" alt="Queen Lucy - The Legend" class="story-image">
+                    <div class="story-badge">★ THE QUEEN ★</div>
+                </div>
+            </div>
+            
+            <div class="story-content">
+                <div class="badge">
+                    <span>♕</span>
+                    <span>QUEEN LUCY LEGACY</span>
+                    <span>♕</span>
+                </div>
+                <h2 class="story-title">
+                    FROM ASIAN ROOTS<br>
+                    TO STREET ROYALTY
+                </h2>
+                <p class="story-text">
+                    Queen Lucy reigns where culture meets concrete. Born from the heart of Asian heritage and crowned by the streets, she's the icon for everyone who refuses to choose between tradition and innovation.
+                </p>
+                <p class="story-text" style="opacity: 0.8; font-size: 16px;">
+                    Every piece carries her blessing. Every drop is a limited throne. If you're not ready to rule your block with pride and flavor, this ain't your dynasty.
+                </p>
+                <a href="#about" class="btn btn-secondary" style="margin-top: 16px;">★ MEET THE QUEEN ★</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Social Section -->
+    <section class="social-section">
+        <h2 class="social-title">REP THE CROWN</h2>
+        <p class="social-handle">★ @queenlucy.official ★</p>
+        <p class="social-hashtag">#QueenLucyCrew #LucyGang</p>
+        
+        <div class="social-grid">
+            <img src="https://www.figma.com/api/mcp/asset/949d3685-1481-4312-935a-8eda995eddef" alt="Customer photo" class="social-image">
+            <img src="https://www.figma.com/api/mcp/asset/30bee9a1-ed9b-44a5-8aa6-825f55ecb8c8" alt="Customer photo" class="social-image">
+            <img src="https://www.figma.com/api/mcp/asset/7048913e-c9a9-41e8-b665-ba9bc147f618" alt="Customer photo" class="social-image">
+            <img src="https://www.figma.com/api/mcp/asset/2327d97f-6d2e-43e7-ae2e-b069d1ec97ff" alt="Customer photo" class="social-image">
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>SHOP</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Hoodies & Crews</a></li>
+                    <li><a href="#">Tees</a></li>
+                    <li><a href="#">Hats & Beanies</a></li>
+                    <li><a href="#">Bar Gear</a></li>
+                    <li><a href="#">Stickers</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>CUSTOM</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Print w/ Lucy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>HELP</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Shipping</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Sizing</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>STORY</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Meet Queen Lucy</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Tag Us</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-social">
+                <div class="social-icon">📷</div>
+                <div class="social-icon">🎵</div>
+            </div>
+            
+            <div class="footer-legal">
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+            </div>
+            
+            <p class="footer-copyright">
+                ♕ © 2025 Queen Lucy. All Rights Reserved. ♕
+            </p>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>YOUR THRONE</h2>
+            <button class="cart-close" id="cartClose">×</button>
+        </div>
+        <div class="cart-content" id="cartContent">
+            <div class="cart-empty">
+                <div class="empty-icon">👑</div>
+                <h3>YOUR THRONE AWAITS</h3>
+                <p>Your legendary collection starts here</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>TOTAL: $<span id="cartTotal">0</span> AUD</span>
+            </div>
+            <button class="cart-checkout-btn">CLAIM THRONE</button>
+        </div>
+    </div>
+
+    <script>
+        // Loading Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 1500);
+        });
+        
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+        
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let followerX = 0, followerY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        
+        function animate() {
+            cursorX += (mouseX - cursorX) * 0.3;
+            cursorY += (mouseY - cursorY) * 0.3;
+            
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+            
+            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+            follower.style.transform = `translate(${followerX}px, ${followerY}px)`;
+            
+            requestAnimationFrame(animate);
+        }
+        animate();
+        
+        // Cursor interactions
+        const interactiveElements = document.querySelectorAll('a, button, .icon-btn, .product-card, .category-card, .social-image');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        });
+        
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Cart functionality
+        const cartIcon = document.getElementById('cartIcon');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const cartClose = document.getElementById('cartClose');
+        const cartBadge = document.getElementById('cartBadge');
+
+        function openCart() {
+            cartSidebar.classList.add('active');
+            cartOverlay.classList.add('active');
+        }
+
+        function closeCart() {
+            cartSidebar.classList.remove('active');
+            cartOverlay.classList.remove('active');
+        }
+
+        cartIcon.addEventListener('click', openCart);
+        cartClose.addEventListener('click', closeCart);
+        cartOverlay.addEventListener('click', closeCart);
+
+        // Initialize cart state
+        let cartState = {
+            items: [],
+            total: 0,
+            count: 0
+        };
+
+        function updateCartBadge() {
+            cartBadge.textContent = cartState.count;
+            cartBadge.style.display = cartState.count > 0 ? 'flex' : 'none';
+        }
+
+        // Load cart from localStorage
+        function loadCart() {
+            const saved = localStorage.getItem('queenLucyCart');
+            if (saved) {
+                cartState = JSON.parse(saved);
+                updateCartBadge();
+            }
+        }
+
+        // Save cart to localStorage
+        function saveCart() {
+            localStorage.setItem('queenLucyCart', JSON.stringify(cartState));
+        }
+
+        // Initialize cart
+        loadCart();
+    </script>
+</body>
+</html>
