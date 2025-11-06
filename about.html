@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE STORY - QUEEN LUCY MERCH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ec4899;
+            --primary-dark: #991b1b;
+            --accent: #FFD700;
+            --black: #0A0A0A;
+            --gray-dark: #1A1A1A;
+            --white: #FFFFFF;
+            --neon-pink: #FF006E;
+            --neon-purple: #8B00FF;
+            --neon-blue: #00F0FF;
+            --card-bg: rgba(18, 18, 18, 0.95);
+            --border: rgba(255, 255, 255, 0.1);
+            --gold: #fbbf24;
+        }
+
+        body {
+            font-family: 'Arimo', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.active {
+            transform: scale(1.5);
+            background: var(--accent);
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            color: var(--white);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: -0.4px;
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, var(--black), var(--gray-dark));
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 0, 255, 0.3) 0%, transparent 50%);
+            animation: bgShift 8s infinite;
+        }
+
+        @keyframes bgShift {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        .hero-image {
+            position: absolute;
+            inset: 0;
+            background: url('public/queen-lucy.png') center center / cover no-repeat;
+            opacity: 0.4;
+            animation: parallax 0.1s ease-out;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 0 40px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--gold);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 32px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 80px;
+            line-height: 0.9;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-title .line1 {
+            color: var(--white);
+        }
+        .hero-title .line2 {
+            background: linear-gradient(45deg, var(--primary), var(--gold));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 48px;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: fadeIn 1s ease 1s both;
+        }
+
+        .scroll-arrow {
+            width: 2px;
+            height: 40px;
+            background: var(--gold);
+            animation: scrollBounce 2s infinite;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            padding: 120px 80px;
+            background: var(--gray-dark);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--gold);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 56px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .timeline {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.6s ease;
+        }
+
+        .timeline-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding: 0 40px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            text-align: right;
+        }
+
+        .timeline-year {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .timeline-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .timeline-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: var(--card-bg);
+            border: 3px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            z-index: 2;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            padding: 120px 80px;
+            background: var(--black);
+            text-align: center;
+            position: relative;
+        }
+
+        .quote-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 30% 70%, rgba(236, 72, 153, 0.1) 0%, transparent 60%),
+                radial-gradient(circle at 70% 30%, rgba(255, 215, 0, 0.1) 0%, transparent 60%);
+        }
+
+        .quote-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .quote-mark {
+            font-size: 120px;
+            color: var(--gold);
+            opacity: 0.3;
+            line-height: 0.8;
+            margin-bottom: 40px;
+        }
+
+        .quote-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            line-height: 1.2;
+            letter-spacing: 2px;
+            color: var(--white);
+            margin-bottom: 40px;
+            animation: typewriter 0.1s steps(1) both;
+        }
+
+        .quote-author {
+            font-size: 18px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 120px 80px;
+            background: var(--gray-dark);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 60px rgba(236, 72, 153, 0.4);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        /* Values Section */
+        .values-section {
+            padding: 120px 80px;
+            background: var(--black);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .value-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(20px);
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.2);
+        }
+
+        .value-icon {
+            font-size: 48px;
+            margin-bottom: 24px;
+        }
+
+        .value-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .value-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 80px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-bg {
+            position: absolute;
+            inset: 0;
+            background: url('public/queen-lucy.png') center center / cover no-repeat;
+            opacity: 0.1;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 64px;
+            letter-spacing: 4px;
+            color: white;
+            margin-bottom: 24px;
+        }
+
+        .cta-subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 48px;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 48px;
+            background: var(--gold);
+            color: var(--black);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 60px rgba(255, 215, 0, 0.6);
+            background: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 20px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 48px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                flex-direction: column !important;
+                padding-left: 60px;
+            }
+
+            .timeline-item .timeline-content {
+                text-align: left !important;
+                padding: 0;
+            }
+
+            .timeline-icon {
+                left: 20px;
+            }
+
+            .quote-text {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .timeline-section,
+            .quote-section,
+            .gallery-section,
+            .values-section,
+            .cta-section {
+                padding: 80px 20px;
+            }
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .lightbox-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: none;
+            color: white;
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            background: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="queen-lucy-merch-store.html" class="logo">
+                <img src="public/lucy-logo.png" alt="Queen Lucy Logo" style="height: 32px; width: auto;">
+            </a>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="queen-lucy-merch-store.html">Home</a></li>
+                    <li><a href="shop-all-products.html">Shop</a></li>
+                    <li><a href="about.html">Story</a></li>
+                    <li><a href="account.html">Account</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-bg"></div>
+        <div class="hero-image"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>♕</span>
+                <span>The Legend</span>
+                <span>♕</span>
+            </div>
+            <h1 class="hero-title">
+                <div class="line1">THE STORY OF</div>
+                <div class="line2">QUEEN LUCY</div>
+            </h1>
+            <p class="hero-subtitle">From Asian roots to street royalty. This is how legends are made.</p>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll to explore</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <div class="section-header">
+            <div class="section-badge">♕ Origin Story ♕</div>
+            <h2 class="section-title">The Rise of a Queen</h2>
+            <p class="section-subtitle">
+                Every legend has a beginning. Here's how Lucy went from the streets to the throne,
+                carrying her Asian heritage with pride and building an empire of culture and style.
+            </p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2018</div>
+                    <h3 class="timeline-title">The Beginning</h3>
+                    <p class="timeline-description">
+                        Born in the heart of Sydney's multicultural streets, Lucy grew up between two worlds -
+                        honoring her Asian heritage while embracing Australian street culture. She refused to choose sides.
+                    </p>
+                </div>
+                <div class="timeline-icon">🌸</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2019</div>
+                    <h3 class="timeline-title">Finding Her Voice</h3>
+                    <p class="timeline-description">
+                        Started creating designs that celebrated both cultures. Her first piece featured cherry blossoms
+                        with graffiti-style lettering - a perfect blend of tradition and rebellion.
+                    </p>
+                </div>
+                <div class="timeline-icon">🎨</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2020</div>
+                    <h3 class="timeline-title">The Breakthrough</h3>
+                    <p class="timeline-description">
+                        During lockdown, Lucy's designs went viral on social media. People connected with her message:
+                        "You don't have to choose between your heritage and your home. Own both."
+                    </p>
+                </div>
+                <div class="timeline-icon">📱</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2021</div>
+                    <h3 class="timeline-title">Building the Kingdom</h3>
+                    <p class="timeline-description">
+                        Launched her first collection with limited drops that sold out in minutes. The community
+                        started calling her "Queen Lucy" - a title she wore with honor and responsibility.
+                    </p>
+                </div>
+                <div class="timeline-icon">👑</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2022</div>
+                    <h3 class="timeline-title">The Dynasty Expands</h3>
+                    <p class="timeline-description">
+                        Opened her first pop-up store, collaborated with local artists, and started the scholarship
+                        program for Asian-Australian creatives. The movement was bigger than merch.
+                    </p>
+                </div>
+                <div class="timeline-icon">🏪</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2023</div>
+                    <h3 class="timeline-title">Legendary Status</h3>
+                    <p class="timeline-description">
+                        Featured in major publications, worn by celebrities, and recognized as a pioneer in
+                        multicultural streetwear. But Lucy stayed true to her roots and her community.
+                    </p>
+                </div>
+                <div class="timeline-icon">⭐</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2024</div>
+                    <h3 class="timeline-title">The Legend Continues</h3>
+                    <p class="timeline-description">
+                        Today, Queen Lucy Merch represents more than clothing. It's a movement for everyone who's
+                        ever felt caught between worlds, proving that your differences are your superpowers.
+                    </p>
+                </div>
+                <div class="timeline-icon">🚀</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <div class="quote-bg"></div>
+        <div class="quote-content">
+            <div class="quote-mark">"</div>
+            <h2 class="quote-text" id="quoteText">I'm not half of anything. I'm fully Asian, fully Australian, and fully myself.</h2>
+            <p class="quote-author">- Queen Lucy</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="section-header">
+            <div class="section-badge">♕ Behind The Scenes ♕</div>
+            <h2 class="section-title">The Journey in Pictures</h2>
+            <p class="section-subtitle">
+                From humble beginnings to royal status. These moments tell the real story.
+            </p>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openLightbox('public/queen-lucy.png')">
+                <img src="public/queen-lucy.png" alt="Queen Lucy Portrait" class="gallery-image">
+                <div class="gallery-overlay"></div>
+                <div class="gallery-caption">The Queen herself</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('https://www.figma.com/api/mcp/asset/949d3685-1481-4312-935a-8eda995eddef')">
+                <img src="https://www.figma.com/api/mcp/asset/949d3685-1481-4312-935a-8eda995eddef" alt="First Design" class="gallery-image">
+                <div class="gallery-overlay"></div>
+                <div class="gallery-caption">First viral design</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('https://www.figma.com/api/mcp/asset/30bee9a1-ed9b-44a5-8aa6-825f55ecb8c8')">
+                <img src="https://www.figma.com/api/mcp/asset/30bee9a1-ed9b-44a5-8aa6-825f55ecb8c8" alt="Workshop" class="gallery-image">
+                <div class="gallery-overlay"></div>
+                <div class="gallery-caption">Creating the magic</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('https://www.figma.com/api/mcp/asset/7048913e-c9a9-41e8-b665-ba9bc147f618')">
+                <img src="https://www.figma.com/api/mcp/asset/7048913e-c9a9-41e8-b665-ba9bc147f618" alt="Community" class="gallery-image">
+                <div class="gallery-overlay"></div>
+                <div class="gallery-caption">The community</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('https://www.figma.com/api/mcp/asset/5bf081a0-6ecc-4884-ae22-0cb03c5adc77')">
+                <img src="https://www.figma.com/api/mcp/asset/5bf081a0-6ecc-4884-ae22-0cb03c5adc77" alt="Street Art" class="gallery-image">
+                <div class="gallery-overlay"></div>
+                <div class="gallery-caption">Street art collab</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('https://www.figma.com/api/mcp/asset/2327d97f-6d2e-43e7-ae2e-b069d1ec97ff')">
+                <img src="https://www.figma.com/api/mcp/asset/2327d97f-6d2e-43e7-ae2e-b069d1ec97ff" alt="Pop-up Store" class="gallery-image">
+                <div class="gallery-overlay"></div>
+                <div class="gallery-caption">First pop-up store</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="section-header">
+            <div class="section-badge">♕ Our Values ♕</div>
+            <h2 class="section-title">What We Stand For</h2>
+            <p class="section-subtitle">
+                These aren't just words on a wall. They're the foundation of everything we do.
+            </p>
+        </div>
+
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">🌏</div>
+                <h3 class="value-title">Cultural Pride</h3>
+                <p class="value-description">
+                    Celebrating our heritage while embracing our home. We don't hide our roots - we flaunt them.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🔥</div>
+                <h3 class="value-title">Authentic Expression</h3>
+                <p class="value-description">
+                    Real recognizes real. Every piece tells a story, and every story matters.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🤝</div>
+                <h3 class="value-title">Community First</h3>
+                <p class="value-description">
+                    We rise together. Supporting artists, creators, and dreamers who dare to be different.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-bg"></div>
+        <div class="cta-content">
+            <h2 class="cta-title">Join The Dynasty</h2>
+            <p class="cta-subtitle">
+                Ready to rep the crown? Every piece comes with purpose, pride, and a piece of the legend.
+            </p>
+            <a href="queen-lucy-merch-store.html" class="cta-btn">
+                ★ Shop The Collection ★
+            </a>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-image" id="lightboxImage">
+            <button class="lightbox-close" onclick="closeLightbox()">×</button>
+        </div>
+    </div>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let followerX = 0, followerY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animate() {
+            cursorX += (mouseX - cursorX) * 0.3;
+            cursorY += (mouseY - cursorY) * 0.3;
+
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+
+            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+            follower.style.transform = `translate(${followerX}px, ${followerY}px)`;
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Cursor interactions
+        const interactiveElements = document.querySelectorAll('a, button, .gallery-item');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        });
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Parallax effect for hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            document.querySelector('.hero-image').style.transform = `translateY(${rate}px)`;
+        });
+
+        // Timeline animation
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            observer.observe(item);
+        });
+
+        // Typewriter effect for quote
+        const quoteObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    typeWriter();
+                }
+            });
+        }, { threshold: 0.5 });
+
+        quoteObserver.observe(document.querySelector('.quote-section'));
+
+        let typewriterExecuted = false;
+
+        function typeWriter() {
+            if (typewriterExecuted) return;
+            typewriterExecuted = true;
+
+            const text = "I'm not half of anything. I'm fully Asian, fully Australian, and fully myself.";
+            const element = document.getElementById('quoteText');
+            let i = 0;
+
+            element.textContent = '';
+
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                }
+            }
+
+            type();
+        }
+
+        // Lightbox functions
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+
+            lightboxImage.src = imageSrc;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

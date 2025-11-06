@@ -594,9 +594,7 @@
     <header class="header">
         <div class="header-container">
             <a href="queen-lucy-merch-store.html" class="logo">
-                <span class="crown">♕</span>
-                <span>QUEEN LUCY</span>
-                <span class="crown">♕</span>
+                <img src="public/lucy-logo.png" alt="Queen Lucy Logo" style="height: 32px; width: auto;">
             </a>
 
             <nav>
@@ -611,7 +609,7 @@
 
             <div class="header-icons">
                 <div class="icon-btn">🔍</div>
-                <div class="icon-btn">👤</div>
+                <div class="icon-btn" onclick="window.location.href='account.html'">👤</div>
                 <div class="icon-btn">❤️</div>
                 <div class="icon-btn" id="cartIcon">🛒<span id="cartBadge" class="cart-badge">0</span></div>
             </div>
@@ -693,7 +691,7 @@
             <div class="cart-total">
                 <span>TOTAL: $<span id="cartTotal">0</span> AUD</span>
             </div>
-            <button class="cart-checkout-btn">CLAIM THRONE</button>
+            <button class="cart-checkout-btn" onclick="window.location.href='checkout.html'">CLAIM THRONE</button>
         </div>
     </div>
 
@@ -996,6 +994,53 @@
 
         // Initialize the page
         initializePage();
+
+        // Initialize Shopify API integration
+        function initializeShopifyAPI() {
+            const config = localStorage.getItem('queenLucyShopifyConfig');
+            if (config) {
+                const parsed = JSON.parse(config);
+                if (parsed.shopDomain && parsed.accessToken) {
+                    const queenLucyAPI = new QueenLucyShopifyAPI(parsed);
+
+                    // Listen for product updates
+                    window.addEventListener('queenLucyProductsSync', (event) => {
+                        updateShopAllProducts(event.detail.products);
+                    });
+
+                    // Load products immediately if available
+                    queenLucyAPI.getAllProducts().then(products => {
+                        updateShopAllProducts(products);
+                    }).catch(err => {
+                        console.log('Using default products for now:', err.message);
+                    });
+                }
+            }
+        }
+
+        // Update shop all products with Shopify data
+        function updateShopAllProducts(products) {
+            if (!products || products.length === 0) return;
+
+            // Replace existing products array
+            allProducts = products;
+            filteredProducts = [...products];
+
+            // Apply current filters and update display
+            filterProducts();
+
+            console.log('🛍️ Shop All updated with', products.length, 'Shopify products!');
+        }
+
+        // Load Shopify integration after other scripts
+        setTimeout(() => {
+            if (typeof QueenLucyShopifyAPI !== 'undefined') {
+                initializeShopifyAPI();
+            }
+        }, 100);
     </script>
+
+    <!-- Shopify API Integration -->
+    <script src="js/shopify-api.js"></script>
 </body>
 </html>

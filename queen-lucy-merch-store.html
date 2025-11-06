@@ -989,26 +989,24 @@
     <header class="header" id="header">
         <div class="header-container">
             <a href="queen-lucy-merch-store.html" class="logo">
-                <span class="crown">♕</span>
-                <span>QUEEN LUCY</span>
-                <span class="crown">♕</span>
+                <img src="public/lucy-logo.png" alt="Queen Lucy Logo" style="height: 32px; width: auto;">
             </a>
             
             <nav>
                 <ul class="nav-links">
                     <li><a href="shop-all-products.html">SHOP ALL</a></li>
-                    <li><a href="hoodies-collection.html">HOODIES & CREWS</a></li>
-                    <li><a href="#tees">TEES & LONG SLEEVES</a></li>
-                    <li><a href="#hats">HATS & BEANIES</a></li>
-                    <li><a href="#accessories">ACCESSORIES</a></li>
-                    <li><a href="#stickers">STICKERS & EXTRAS</a></li>
-                    <li><a href="#custom">CUSTOM PRINT</a></li>
+                    <li><a href="shop-all-products.html?category=hoodies">HOODIES & CREWS</a></li>
+                    <li><a href="shop-all-products.html?category=tees">TEES & LONG SLEEVES</a></li>
+                    <li><a href="shop-all-products.html?category=hats">HATS & BEANIES</a></li>
+                    <li><a href="shop-all-products.html?category=accessories">ACCESSORIES</a></li>
+                    <li><a href="shop-all-products.html?category=stickers">STICKERS & EXTRAS</a></li>
+                    <li><a href="shop-all-products.html?category=custom">CUSTOM PRINT</a></li>
                 </ul>
             </nav>
             
             <div class="header-icons">
                 <div class="icon-btn">🔍</div>
-                <div class="icon-btn">👤</div>
+                <div class="icon-btn" onclick="window.location.href='account.html'">👤</div>
                 <div class="icon-btn">❤️</div>
                 <div class="icon-btn" id="cartIcon">🛒<span id="cartBadge" class="cart-badge">0</span></div>
             </div>
@@ -1039,7 +1037,7 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="/mnt/user-data/uploads/Lucy_s_Noodles.png" alt="Queen Lucy">
+                <img src="public/queen-lucy.png" alt="Queen Lucy">
             </div>
         </div>
     </section>
@@ -1158,7 +1156,7 @@
         <div class="story-container">
             <div class="story-image-wrapper">
                 <div class="story-image-frame">
-                    <img src="/mnt/user-data/uploads/Lucy_s_Noodles.png" alt="Queen Lucy - The Legend" class="story-image">
+                    <img src="public/queen-lucy.png" alt="Queen Lucy - The Legend" class="story-image">
                     <div class="story-badge">★ THE QUEEN ★</div>
                 </div>
             </div>
@@ -1274,7 +1272,7 @@
             <div class="cart-total">
                 <span>TOTAL: $<span id="cartTotal">0</span> AUD</span>
             </div>
-            <button class="cart-checkout-btn">CLAIM THRONE</button>
+            <button class="cart-checkout-btn" onclick="window.location.href='checkout.html'">CLAIM THRONE</button>
         </div>
     </div>
 
@@ -1390,6 +1388,74 @@
 
         // Initialize cart
         loadCart();
+    </script>
+
+    <!-- Shopify API Integration -->
+    <script src="js/shopify-api.js"></script>
+    <script>
+        // Initialize Shopify API for Queen Lucy
+        let queenLucyAPI = null;
+
+        // Load API configuration
+        function initializeShopifyAPI() {
+            const config = localStorage.getItem('queenLucyShopifyConfig');
+            if (config) {
+                const parsed = JSON.parse(config);
+                if (parsed.shopDomain && parsed.accessToken) {
+                    queenLucyAPI = new QueenLucyShopifyAPI(parsed);
+
+                    // Listen for product updates
+                    window.addEventListener('queenLucyProductsSync', (event) => {
+                        updateMainStoreProducts(event.detail.products);
+                    });
+                }
+            }
+        }
+
+        // Update main store product grid with Shopify data
+        function updateMainStoreProducts(products) {
+            const grid = document.querySelector('.products-grid');
+            if (!grid || !products || products.length === 0) return;
+
+            // Show first 4 products on main store
+            const featuredProducts = products.slice(0, 4);
+
+            grid.innerHTML = featuredProducts.map(product => {
+                const badge = product.badge ? `<div class="product-badge badge-${product.badge.toLowerCase()}">${product.badge}</div>` : '';
+                const mainImage = product.images[0] || { src: 'https://via.placeholder.com/400x426?text=No+Image', alt: product.name };
+
+                return `
+                    <a href="queen-lucy-product-detail.html?id=${product.handle}" class="product-card" style="text-decoration: none; color: inherit;">
+                        <div class="product-image">
+                            <img src="${mainImage.src}" alt="${mainImage.alt || product.name}">
+                            ${badge}
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">${product.name}</h3>
+                            <div class="product-meta">
+                                <span class="price">$${product.price.toFixed(2)} AUD</span>
+                                <span class="colors">${product.variants.length} variant${product.variants.length !== 1 ? 's' : ''}</span>
+                            </div>
+                        </div>
+                    </a>
+                `;
+            }).join('');
+
+            console.log('✨ Main store updated with Shopify products!');
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeShopifyAPI();
+        });
+
+        // Add admin link for easy access (hidden in footer)
+        document.addEventListener('keydown', (e) => {
+            // Ctrl + Shift + A opens admin dashboard
+            if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+                window.location.href = 'admin-dashboard.html';
+            }
+        });
     </script>
 </body>
 </html>

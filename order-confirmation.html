@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORDER CONFIRMED - QUEEN LUCY MERCH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ec4899;
+            --primary-dark: #991b1b;
+            --accent: #FFD700;
+            --black: #0A0A0A;
+            --gray-dark: #1A1A1A;
+            --white: #FFFFFF;
+            --neon-pink: #FF006E;
+            --neon-purple: #8B00FF;
+            --neon-blue: #00F0FF;
+            --card-bg: rgba(18, 18, 18, 0.95);
+            --border: rgba(255, 255, 255, 0.1);
+            --gold: #fbbf24;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Arimo', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.active {
+            transform: scale(1.5);
+            background: var(--accent);
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 0.8px solid rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            color: var(--black);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: -0.4px;
+            font-weight: 400;
+        }
+
+        .logo .crown {
+            color: var(--accent);
+            font-size: 16px;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            text-align: center;
+            min-height: calc(100vh - 120px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Success Animation */
+        .success-container {
+            margin-bottom: 48px;
+            animation: successEntrance 1s ease 0.5s both;
+        }
+
+        @keyframes successEntrance {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .success-checkmark {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 32px;
+            position: relative;
+        }
+
+        .checkmark-circle {
+            width: 120px;
+            height: 120px;
+            border: 4px solid var(--success);
+            border-radius: 50%;
+            position: relative;
+            animation: circleScale 0.8s ease 0.8s both;
+        }
+
+        @keyframes circleScale {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .checkmark-check {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+        }
+
+        .checkmark-check svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .checkmark-path {
+            stroke: var(--success);
+            stroke-width: 6;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: drawCheck 1s ease 1.5s both;
+        }
+
+        @keyframes drawCheck {
+            0% {
+                stroke-dashoffset: 100;
+            }
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* Success Message */
+        .success-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 64px;
+            letter-spacing: 6px;
+            color: var(--success);
+            margin-bottom: 16px;
+            animation: titleSlideIn 0.8s ease 1s both;
+        }
+
+        @keyframes titleSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 48px;
+            animation: subtitleFadeIn 0.8s ease 1.2s both;
+        }
+
+        @keyframes subtitleFadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Order Details */
+        .order-details {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 48px;
+            backdrop-filter: blur(20px);
+            animation: detailsSlideUp 0.8s ease 1.4s both;
+        }
+
+        @keyframes detailsSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .order-number {
+            margin-bottom: 32px;
+        }
+
+        .order-number-label {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 8px;
+        }
+
+        .order-number-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 36px;
+            letter-spacing: 4px;
+            color: var(--gold);
+            background: linear-gradient(45deg, var(--gold), var(--accent));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .order-number-value:hover {
+            transform: scale(1.05);
+        }
+
+        .order-copy-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: rgba(255, 255, 255, 0.6);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .order-copy-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Order Summary */
+        .order-summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            text-align: left;
+        }
+
+        .summary-section h4 {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .summary-label {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .summary-value {
+            color: var(--white);
+            font-weight: 700;
+        }
+
+        .address-line {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        /* What's Next Timeline */
+        .whats-next {
+            margin-bottom: 48px;
+            animation: timelineSlideIn 0.8s ease 1.6s both;
+        }
+
+        @keyframes timelineSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .timeline-title {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 32px;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .timeline-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+            position: relative;
+        }
+
+        .timeline-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 60%;
+            width: 80%;
+            height: 2px;
+            background: var(--border);
+            animation: timelineProgress 2s ease 2s both;
+        }
+
+        @keyframes timelineProgress {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 80%;
+            }
+        }
+
+        .timeline-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-dark);
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-step.active .timeline-icon {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.6);
+            animation: timelineActive 1s ease 2.5s;
+        }
+
+        @keyframes timelineActive {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .timeline-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 4px;
+        }
+
+        .timeline-desc {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .timeline-step.active .timeline-label {
+            color: var(--primary);
+        }
+
+        /* Social Share */
+        .social-share {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 48px;
+            animation: socialSlideIn 0.8s ease 1.8s both;
+        }
+
+        @keyframes socialSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .social-title {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .social-subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 24px;
+        }
+
+        .social-hashtags {
+            font-size: 16px;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .social-btn {
+            padding: 12px 24px;
+            background: var(--gray-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Continue Shopping CTA */
+        .continue-shopping {
+            animation: ctaSlideIn 0.8s ease 2s both;
+        }
+
+        @keyframes ctaSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-btn {
+            padding: 20px 48px;
+            background: linear-gradient(45deg, var(--primary), var(--gold));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 40px rgba(236, 72, 153, 0.4);
+            animation: ctaPulse 3s infinite 3s;
+        }
+
+        @keyframes ctaPulse {
+            0%, 100% {
+                box-shadow: 0 15px 40px rgba(236, 72, 153, 0.4);
+            }
+            50% {
+                box-shadow: 0 20px 60px rgba(236, 72, 153, 0.8);
+            }
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            animation: none;
+            box-shadow: 0 25px 60px rgba(236, 72, 153, 0.8);
+        }
+
+        /* Email Confirmation */
+        .email-confirmation {
+            margin-top: 48px;
+            padding: 24px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            border-radius: 8px;
+            animation: emailSlideIn 0.8s ease 2.2s both;
+        }
+
+        @keyframes emailSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .email-icon {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .email-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--success);
+            margin-bottom: 8px;
+        }
+
+        .email-desc {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Confetti Animation */
+        .confetti-particle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            animation: confetti-fall 4s linear forwards;
+            pointer-events: none;
+            z-index: 10000;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                opacity: 1;
+                transform: translateY(-100vh) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 20px 20px;
+            }
+
+            .main-container {
+                padding: 40px 20px;
+            }
+
+            .success-title {
+                font-size: 48px;
+                letter-spacing: 3px;
+            }
+
+            .order-details {
+                padding: 24px;
+            }
+
+            .order-summary {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .timeline {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .timeline-step::after {
+                display: none;
+            }
+
+            .social-buttons {
+                flex-direction: column;
+            }
+
+            .cta-btn {
+                padding: 16px 32px;
+                font-size: 14px;
+                letter-spacing: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="queen-lucy-merch-store.html" class="logo">
+                <img src="public/lucy-logo.png" alt="Queen Lucy Logo" style="height: 32px; width: auto;">
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Success Animation -->
+        <div class="success-container">
+            <div class="success-checkmark">
+                <div class="checkmark-circle"></div>
+                <div class="checkmark-check">
+                    <svg viewBox="0 0 100 100">
+                        <path class="checkmark-path" d="M25 50 L40 65 L75 30" />
+                    </svg>
+                </div>
+            </div>
+            <h1 class="success-title">ORDER CONFIRMED!</h1>
+            <p class="success-subtitle">Your royal package is being prepared for delivery 👑</p>
+        </div>
+
+        <!-- Order Details -->
+        <div class="order-details">
+            <div class="order-number">
+                <div class="order-number-label">Order Number</div>
+                <div class="order-number-value" id="orderNumber" onclick="copyOrderNumber()">
+                    QL12345678
+                </div>
+                <button class="order-copy-btn" onclick="copyOrderNumber()">Copy</button>
+            </div>
+
+            <div class="order-summary">
+                <div class="summary-section">
+                    <h4>Order Summary</h4>
+                    <div class="summary-item">
+                        <span class="summary-label">Items (2)</span>
+                        <span class="summary-value">$178.00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Shipping</span>
+                        <span class="summary-value">$19.95</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Tax (GST)</span>
+                        <span class="summary-value">$19.80</span>
+                    </div>
+                    <div class="summary-item" style="border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px;">
+                        <span class="summary-label" style="color: var(--gold); font-weight: 700;">Total</span>
+                        <span class="summary-value" style="color: var(--gold); font-size: 18px;">$217.75 AUD</span>
+                    </div>
+                </div>
+
+                <div class="summary-section">
+                    <h4>Delivery Address</h4>
+                    <div class="address-line" id="customerName">Queen Lucy</div>
+                    <div class="address-line" id="customerAddress">123 Throne Street</div>
+                    <div class="address-line" id="customerCity">Sydney, NSW 2000</div>
+                    <div class="address-line">Australia</div>
+                    <div style="margin-top: 16px;">
+                        <div class="summary-item">
+                            <span class="summary-label">Shipping Method</span>
+                            <span class="summary-value" id="shippingMethod">Express Shipping</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Expected Delivery</span>
+                            <span class="summary-value" id="deliveryDate">Dec 8-9, 2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- What's Next Timeline -->
+        <div class="whats-next">
+            <h3 class="timeline-title">What Happens Next</h3>
+            <div class="timeline">
+                <div class="timeline-step active">
+                    <div class="timeline-icon">📦</div>
+                    <div class="timeline-label">Processing</div>
+                    <div class="timeline-desc">1-2 hours</div>
+                </div>
+                <div class="timeline-step">
+                    <div class="timeline-icon">🚚</div>
+                    <div class="timeline-label">Shipped</div>
+                    <div class="timeline-desc">1-2 days</div>
+                </div>
+                <div class="timeline-step">
+                    <div class="timeline-icon">👑</div>
+                    <div class="timeline-label">Delivered</div>
+                    <div class="timeline-desc">2-3 days</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Share -->
+        <div class="social-share">
+            <h3 class="social-title">Share Your Haul</h3>
+            <p class="social-subtitle">Show the world you're part of the Queen Lucy dynasty</p>
+            <p class="social-hashtags">#QueenLucyCrew #LucyGang #ThroneClaimed</p>
+            <div class="social-buttons">
+                <a href="#" class="social-btn" onclick="shareToInstagram()">
+                    📷 Instagram
+                </a>
+                <a href="#" class="social-btn" onclick="shareToTwitter()">
+                    🐦 Twitter
+                </a>
+                <a href="#" class="social-btn" onclick="shareToFacebook()">
+                    📘 Facebook
+                </a>
+            </div>
+        </div>
+
+        <!-- Continue Shopping CTA -->
+        <div class="continue-shopping">
+            <a href="queen-lucy-merch-store.html" class="cta-btn">
+                ★ CONTINUE SHOPPING ★
+            </a>
+        </div>
+
+        <!-- Email Confirmation -->
+        <div class="email-confirmation">
+            <div class="email-icon">📧</div>
+            <div class="email-title">Check Your Inbox</div>
+            <div class="email-desc">We've sent a confirmation email with your order details and tracking information.</div>
+        </div>
+    </div>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let followerX = 0, followerY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animate() {
+            cursorX += (mouseX - cursorX) * 0.3;
+            cursorY += (mouseY - cursorY) * 0.3;
+
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+
+            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+            follower.style.transform = `translate(${followerX}px, ${followerY}px)`;
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Cursor interactions
+        const interactiveElements = document.querySelectorAll('a, button, .order-number-value');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        });
+
+        // Get order details from URL
+        function getOrderDetailsFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderNumber = urlParams.get('order');
+
+            if (orderNumber) {
+                document.getElementById('orderNumber').textContent = orderNumber;
+            }
+        }
+
+        // Copy order number function
+        function copyOrderNumber() {
+            const orderNumber = document.getElementById('orderNumber').textContent;
+            navigator.clipboard.writeText(orderNumber).then(() => {
+                const btn = document.querySelector('.order-copy-btn');
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.style.color = 'var(--success)';
+                btn.style.borderColor = 'var(--success)';
+
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.color = '';
+                    btn.style.borderColor = '';
+                }, 2000);
+            });
+        }
+
+        // Social sharing functions
+        function shareToInstagram() {
+            const text = `Just claimed my throne with Queen Lucy Merch! 👑 Order #${document.getElementById('orderNumber').textContent} #QueenLucyCrew #LucyGang`;
+
+            // Since Instagram doesn't have a direct share URL, we'll copy to clipboard
+            navigator.clipboard.writeText(text);
+            alert('Caption copied! Now go post your haul on Instagram 📷');
+        }
+
+        function shareToTwitter() {
+            const text = `Just claimed my throne with @queenlucy.official! 👑 Order #${document.getElementById('orderNumber').textContent} #QueenLucyCrew #LucyGang`;
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+
+        function shareToFacebook() {
+            const text = `Just ordered from Queen Lucy Merch! Can't wait to rep the crown 👑 #QueenLucyCrew`;
+            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.origin)}&quote=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+
+        // Massive confetti celebration
+        function createMassiveConfetti() {
+            const colors = ['#ec4899', '#FFD700', '#8B00FF', '#00F0FF', '#10b981'];
+
+            for (let i = 0; i < 200; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti-particle';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    confetti.style.width = (Math.random() * 8 + 8) + 'px';
+                    confetti.style.height = confetti.style.width;
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 10);
+            }
+        }
+
+        // Load order details and trigger confetti on page load
+        window.addEventListener('load', () => {
+            getOrderDetailsFromURL();
+
+            // Trigger massive confetti after a delay
+            setTimeout(createMassiveConfetti, 500);
+
+            // Trigger another wave of confetti
+            setTimeout(createMassiveConfetti, 2000);
+        });
+
+        // Update delivery date to be realistic
+        function updateDeliveryDate() {
+            const today = new Date();
+            const delivery = new Date(today);
+            delivery.setDate(today.getDate() + 3); // 3 days from now
+
+            const options = {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            };
+
+            const endDate = new Date(delivery);
+            endDate.setDate(delivery.getDate() + 1);
+
+            const deliveryText = `${delivery.toLocaleDateString('en-US', {month: 'short', day: 'numeric'})} - ${endDate.toLocaleDateString('en-US', {month: 'short', day: 'numeric'})}`;
+            document.getElementById('deliveryDate').textContent = deliveryText;
+        }
+
+        // Initialize
+        updateDeliveryDate();
+    </script>
+</body>
+</html>

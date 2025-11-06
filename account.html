@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACCOUNT - QUEEN LUCY MERCH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ec4899;
+            --primary-dark: #991b1b;
+            --accent: #FFD700;
+            --black: #0A0A0A;
+            --gray-dark: #1A1A1A;
+            --white: #FFFFFF;
+            --neon-pink: #FF006E;
+            --neon-purple: #8B00FF;
+            --neon-blue: #00F0FF;
+            --card-bg: rgba(18, 18, 18, 0.95);
+            --border: rgba(255, 255, 255, 0.1);
+            --gold: #fbbf24;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+
+        body {
+            font-family: 'Arimo', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            cursor: none;
+            min-height: 100vh;
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 0, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.active {
+            transform: scale(1.5);
+            background: var(--accent);
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 0.8px solid rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            color: var(--black);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: -0.4px;
+            font-weight: 400;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--black);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 16px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            min-height: calc(100vh - 120px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Header Section */
+        .page-header {
+            text-align: center;
+            margin-bottom: 48px;
+            animation: headerSlideIn 0.8s ease;
+        }
+
+        @keyframes headerSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .crown-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            animation: crownFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes crownFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .page-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, var(--primary), var(--gold));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+
+        .page-subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Auth Container */
+        .auth-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            animation: containerSlideUp 0.8s ease 0.2s both;
+        }
+
+        @keyframes containerSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            background: var(--gray-dark);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 20px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: var(--gold);
+            background: var(--card-bg);
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .tab-btn.active::after {
+            width: 100%;
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Form Container */
+        .form-container {
+            padding: 40px;
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+            animation: formSlideIn 0.5s ease;
+        }
+
+        @keyframes formSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Social Login */
+        .social-login {
+            margin-bottom: 32px;
+        }
+
+        .social-title {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--gray-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4);
+        }
+
+        .social-btn.google:hover {
+            background: #4285f4;
+            border-color: #4285f4;
+            box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
+        }
+
+        .social-btn.facebook:hover {
+            background: #1877f2;
+            border-color: #1877f2;
+            box-shadow: 0 8px 25px rgba(24, 119, 242, 0.4);
+        }
+
+        .social-icon {
+            font-size: 18px;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 32px 0;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .divider span {
+            padding: 0 16px;
+        }
+
+        /* Form Fields */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            background: var(--gray-dark);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--white);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+            transform: scale(1.01);
+        }
+
+        .form-input.valid {
+            border-color: var(--success);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+        }
+
+        .form-input.error {
+            border-color: var(--error);
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: var(--primary);
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 12px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Additional Options */
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .custom-checkbox {
+            width: 18px;
+            height: 18px;
+            background: var(--gray-dark);
+            border: 2px solid var(--border);
+            border-radius: 3px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .custom-checkbox.checked {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .custom-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            animation: checkPop 0.3s ease;
+        }
+
+        @keyframes checkPop {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        .checkbox-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: var(--gold);
+            text-decoration: underline;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, var(--primary), var(--gold));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(236, 72, 153, 0.6);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .submit-btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid white;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Bottom Link */
+        .bottom-link {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+
+        .bottom-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .bottom-link a:hover {
+            color: var(--gold);
+        }
+
+        /* Success Message */
+        .success-message {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            border-radius: 8px;
+            padding: 16px;
+            color: var(--success);
+            text-align: center;
+            margin-bottom: 24px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 20px 20px;
+            }
+
+            .main-container {
+                padding: 40px 20px;
+                max-width: 100%;
+            }
+
+            .form-container {
+                padding: 24px;
+            }
+
+            .page-title {
+                font-size: 36px;
+                letter-spacing: 2px;
+            }
+
+            .social-buttons {
+                gap: 8px;
+            }
+
+            .form-options {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="queen-lucy-merch-store.html" class="logo">
+                <img src="public/lucy-logo.png" alt="Queen Lucy Logo" style="height: 32px; width: auto;">
+            </a>
+            <a href="queen-lucy-merch-store.html" class="back-btn">
+                ← Back to Store
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="crown-icon">👑</div>
+            <h1 class="page-title">Join The Dynasty</h1>
+            <p class="page-subtitle">Claim your throne in the Queen Lucy kingdom</p>
+        </div>
+
+        <!-- Auth Container -->
+        <div class="auth-container">
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-btn active" id="loginTab" onclick="switchTab('login')">
+                    Sign In
+                </button>
+                <button class="tab-btn" id="signupTab" onclick="switchTab('signup')">
+                    Join Now
+                </button>
+            </div>
+
+            <!-- Form Container -->
+            <div class="form-container">
+                <!-- Login Form -->
+                <form class="auth-form active" id="loginForm">
+                    <div class="success-message" id="loginSuccess">
+                        <strong>Welcome back, Queen!</strong> You're now signed in.
+                    </div>
+
+                    <!-- Social Login -->
+                    <div class="social-login">
+                        <div class="social-title">Quick Access</div>
+                        <div class="social-buttons">
+                            <button type="button" class="social-btn google" onclick="socialLogin('google')">
+                                <span class="social-icon">🔍</span>
+                                <span>Continue with Google</span>
+                            </button>
+                            <button type="button" class="social-btn facebook" onclick="socialLogin('facebook')">
+                                <span class="social-icon">📘</span>
+                                <span>Continue with Facebook</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="divider">
+                        <span>Or use email</span>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="loginEmail" class="form-label">Email</label>
+                        <input type="email" id="loginEmail" class="form-input" placeholder="queen@example.com" required>
+                        <div class="error-message" id="loginEmailError">Please enter a valid email</div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="loginPassword" class="form-label">Password</label>
+                        <div class="password-container">
+                            <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">
+                                👁️
+                            </button>
+                        </div>
+                        <div class="error-message" id="loginPasswordError">Password is required</div>
+                    </div>
+
+                    <!-- Options -->
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <div class="custom-checkbox" id="rememberMe" onclick="toggleCheckbox('rememberMe')"></div>
+                            <label class="checkbox-label" for="rememberMe">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password" onclick="forgotPassword()">Forgot password?</a>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="submit-btn" id="loginSubmit">
+                        ★ Sign In ★
+                    </button>
+
+                    <div class="bottom-link">
+                        New to Queen Lucy? <a href="#" onclick="switchTab('signup')">Join the dynasty</a>
+                    </div>
+                </form>
+
+                <!-- Signup Form -->
+                <form class="auth-form" id="signupForm">
+                    <div class="success-message" id="signupSuccess">
+                        <strong>Welcome to the dynasty!</strong> Your account has been created.
+                    </div>
+
+                    <!-- Social Login -->
+                    <div class="social-login">
+                        <div class="social-title">Quick Setup</div>
+                        <div class="social-buttons">
+                            <button type="button" class="social-btn google" onclick="socialLogin('google')">
+                                <span class="social-icon">🔍</span>
+                                <span>Sign up with Google</span>
+                            </button>
+                            <button type="button" class="social-btn facebook" onclick="socialLogin('facebook')">
+                                <span class="social-icon">📘</span>
+                                <span>Sign up with Facebook</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="divider">
+                        <span>Or create account</span>
+                    </div>
+
+                    <!-- Name Fields -->
+                    <div class="form-group">
+                        <label for="signupName" class="form-label">Full Name</label>
+                        <input type="text" id="signupName" class="form-input" placeholder="Queen Lucy" required>
+                        <div class="error-message" id="signupNameError">Name is required</div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="signupEmail" class="form-label">Email</label>
+                        <input type="email" id="signupEmail" class="form-input" placeholder="queen@example.com" required>
+                        <div class="error-message" id="signupEmailError">Please enter a valid email</div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="signupPassword" class="form-label">Password</label>
+                        <div class="password-container">
+                            <input type="password" id="signupPassword" class="form-input" placeholder="••••••••" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('signupPassword')">
+                                👁️
+                            </button>
+                        </div>
+                        <div class="error-message" id="signupPasswordError">Password must be at least 8 characters</div>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <div class="password-container">
+                            <input type="password" id="confirmPassword" class="form-input" placeholder="••••••••" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
+                                👁️
+                            </button>
+                        </div>
+                        <div class="error-message" id="confirmPasswordError">Passwords don't match</div>
+                    </div>
+
+                    <!-- Terms -->
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <div class="custom-checkbox" id="agreeTerms" onclick="toggleCheckbox('agreeTerms')"></div>
+                            <label class="checkbox-label" for="agreeTerms">I agree to the Terms & Privacy Policy</label>
+                        </div>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="submit-btn" id="signupSubmit">
+                        ★ Join The Dynasty ★
+                    </button>
+
+                    <div class="bottom-link">
+                        Already a Queen? <a href="#" onclick="switchTab('login')">Sign in here</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let followerX = 0, followerY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animate() {
+            cursorX += (mouseX - cursorX) * 0.3;
+            cursorY += (mouseY - cursorY) * 0.3;
+
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+
+            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+            follower.style.transform = `translate(${followerX}px, ${followerY}px)`;
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Cursor interactions
+        const interactiveElements = document.querySelectorAll('a, button, input, .custom-checkbox');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        });
+
+        // Tab switching
+        function switchTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tab + 'Tab').classList.add('active');
+
+            // Update forms
+            document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+            document.getElementById(tab + 'Form').classList.add('active');
+        }
+
+        // Password toggle
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const toggle = field.nextElementSibling;
+
+            if (field.type === 'password') {
+                field.type = 'text';
+                toggle.textContent = '🙈';
+            } else {
+                field.type = 'password';
+                toggle.textContent = '👁️';
+            }
+        }
+
+        // Custom checkbox
+        function toggleCheckbox(checkboxId) {
+            const checkbox = document.getElementById(checkboxId);
+            checkbox.classList.toggle('checked');
+        }
+
+        // Validation functions
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePassword(password) {
+            return password.length >= 8;
+        }
+
+        function validateField(field, validator, errorId, errorMessage) {
+            const value = field.value;
+            const errorEl = document.getElementById(errorId);
+
+            if (!validator(value)) {
+                field.classList.add('error');
+                field.classList.remove('valid');
+                errorEl.textContent = errorMessage;
+                errorEl.classList.add('show');
+                return false;
+            } else {
+                field.classList.remove('error');
+                field.classList.add('valid');
+                errorEl.classList.remove('show');
+                return true;
+            }
+        }
+
+        // Real-time validation
+        document.getElementById('loginEmail').addEventListener('blur', function() {
+            validateField(this, validateEmail, 'loginEmailError', 'Please enter a valid email');
+        });
+
+        document.getElementById('loginPassword').addEventListener('blur', function() {
+            validateField(this, (val) => val.length > 0, 'loginPasswordError', 'Password is required');
+        });
+
+        document.getElementById('signupName').addEventListener('blur', function() {
+            validateField(this, (val) => val.trim().length > 0, 'signupNameError', 'Name is required');
+        });
+
+        document.getElementById('signupEmail').addEventListener('blur', function() {
+            validateField(this, validateEmail, 'signupEmailError', 'Please enter a valid email');
+        });
+
+        document.getElementById('signupPassword').addEventListener('blur', function() {
+            validateField(this, validatePassword, 'signupPasswordError', 'Password must be at least 8 characters');
+        });
+
+        document.getElementById('confirmPassword').addEventListener('blur', function() {
+            const password = document.getElementById('signupPassword').value;
+            validateField(this, (val) => val === password, 'confirmPasswordError', 'Passwords don\'t match');
+        });
+
+        // Form submissions
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('loginEmail');
+            const password = document.getElementById('loginPassword');
+            const submitBtn = document.getElementById('loginSubmit');
+
+            let isValid = true;
+            isValid &= validateField(email, validateEmail, 'loginEmailError', 'Please enter a valid email');
+            isValid &= validateField(password, (val) => val.length > 0, 'loginPasswordError', 'Password is required');
+
+            if (isValid) {
+                // Show loading state
+                submitBtn.classList.add('loading');
+                submitBtn.textContent = '';
+
+                // Simulate login
+                setTimeout(() => {
+                    submitBtn.classList.remove('loading');
+                    submitBtn.textContent = '★ Sign In ★';
+
+                    document.getElementById('loginSuccess').classList.add('show');
+
+                    // Redirect after success
+                    setTimeout(() => {
+                        window.location.href = 'queen-lucy-merch-store.html';
+                    }, 2000);
+                }, 2000);
+            }
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('signupName');
+            const email = document.getElementById('signupEmail');
+            const password = document.getElementById('signupPassword');
+            const confirmPassword = document.getElementById('confirmPassword');
+            const agreeTerms = document.getElementById('agreeTerms');
+            const submitBtn = document.getElementById('signupSubmit');
+
+            let isValid = true;
+            isValid &= validateField(name, (val) => val.trim().length > 0, 'signupNameError', 'Name is required');
+            isValid &= validateField(email, validateEmail, 'signupEmailError', 'Please enter a valid email');
+            isValid &= validateField(password, validatePassword, 'signupPasswordError', 'Password must be at least 8 characters');
+            isValid &= validateField(confirmPassword, (val) => val === password.value, 'confirmPasswordError', 'Passwords don\'t match');
+
+            if (!agreeTerms.classList.contains('checked')) {
+                alert('Please agree to the Terms & Privacy Policy');
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Show loading state
+                submitBtn.classList.add('loading');
+                submitBtn.textContent = '';
+
+                // Simulate signup
+                setTimeout(() => {
+                    submitBtn.classList.remove('loading');
+                    submitBtn.textContent = '★ Join The Dynasty ★';
+
+                    document.getElementById('signupSuccess').classList.add('show');
+
+                    // Redirect after success
+                    setTimeout(() => {
+                        window.location.href = 'queen-lucy-merch-store.html';
+                    }, 2000);
+                }, 2000);
+            }
+        });
+
+        // Social login
+        function socialLogin(provider) {
+            alert(`${provider} login would be implemented here. For now, redirecting to store...`);
+            setTimeout(() => {
+                window.location.href = 'queen-lucy-merch-store.html';
+            }, 1000);
+        }
+
+        // Forgot password
+        function forgotPassword() {
+            const email = prompt('Enter your email to reset password:');
+            if (email && validateEmail(email)) {
+                alert('Password reset email sent! (This would be implemented)');
+            } else if (email) {
+                alert('Please enter a valid email address');
+            }
+        }
+    </script>
+</body>
+</html>

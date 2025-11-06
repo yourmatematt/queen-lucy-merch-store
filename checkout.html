@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHECKOUT - QUEEN LUCY MERCH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ec4899;
+            --primary-dark: #991b1b;
+            --accent: #FFD700;
+            --black: #0A0A0A;
+            --gray-dark: #1A1A1A;
+            --white: #FFFFFF;
+            --neon-pink: #FF006E;
+            --neon-purple: #8B00FF;
+            --neon-blue: #00F0FF;
+            --card-bg: rgba(18, 18, 18, 0.95);
+            --border: rgba(255, 255, 255, 0.1);
+            --gold: #fbbf24;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+
+        body {
+            font-family: 'Arimo', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.active {
+            transform: scale(1.5);
+            background: var(--accent);
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 0.8px solid rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            color: var(--black);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: -0.4px;
+            font-weight: 400;
+        }
+
+        .logo .crown {
+            color: var(--accent);
+            font-size: 16px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--black);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 16px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .cart-badge-readonly {
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* Main Layout */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 80px;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 64px;
+            min-height: calc(100vh - 120px);
+        }
+
+        /* Progress Indicator */
+        .progress-section {
+            margin-bottom: 40px;
+        }
+
+        .progress-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            border: 2px solid var(--border);
+            background: var(--gray-dark);
+            color: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .step-circle.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.6);
+        }
+
+        .step-circle.completed {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .step-label {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active .step-label {
+            color: var(--primary);
+        }
+
+        .progress-step.completed .step-label {
+            color: var(--success);
+        }
+
+        .progress-connector {
+            width: 80px;
+            height: 2px;
+            background: var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .progress-connector.completed {
+            background: var(--success);
+        }
+
+        /* Form Container */
+        .checkout-form {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 32px;
+            backdrop-filter: blur(20px);
+        }
+
+        .form-step {
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .step-title {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .step-subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 32px;
+        }
+
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            background: var(--gray-dark);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--white);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+        }
+
+        .form-input.valid {
+            border-color: var(--success);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+        }
+
+        .form-input.error {
+            border-color: var(--error);
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 12px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Shipping Options */
+        .shipping-options {
+            display: grid;
+            gap: 16px;
+        }
+
+        .shipping-option {
+            background: var(--gray-dark);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .shipping-option:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.2);
+        }
+
+        .shipping-option.selected {
+            border-color: var(--primary);
+            background: rgba(236, 72, 153, 0.1);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+        }
+
+        .shipping-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .shipping-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .shipping-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .shipping-free-badge {
+            background: var(--success);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .shipping-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .payment-method {
+            background: var(--gray-dark);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary);
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.2);
+        }
+
+        .payment-method.selected {
+            border-color: var(--primary);
+            background: rgba(236, 72, 153, 0.1);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+        }
+
+        .payment-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .payment-name {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--white);
+        }
+
+        /* Promo Code */
+        .promo-section {
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+        }
+
+        .promo-toggle {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 14px;
+            text-decoration: underline;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .promo-toggle:hover {
+            color: var(--gold);
+        }
+
+        .promo-form {
+            display: none;
+            margin-top: 16px;
+            gap: 12px;
+        }
+
+        .promo-form.show {
+            display: flex;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 100px;
+            }
+        }
+
+        .promo-input {
+            flex: 1;
+        }
+
+        .apply-btn {
+            padding: 16px 24px;
+            background: var(--primary);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .apply-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation Buttons */
+        .step-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+        }
+
+        .nav-btn {
+            padding: 16px 32px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back {
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--white);
+        }
+
+        .btn-back:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-next {
+            background: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+
+        .btn-next:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+        }
+
+        .btn-place-order {
+            background: linear-gradient(45deg, var(--primary), var(--gold));
+            color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+            }
+            50% {
+                box-shadow: 0 15px 40px rgba(236, 72, 153, 0.6);
+            }
+        }
+
+        .btn-place-order:hover {
+            transform: translateY(-4px);
+            animation: none;
+            box-shadow: 0 20px 50px rgba(236, 72, 153, 0.8);
+        }
+
+        /* Order Summary Sidebar */
+        .order-summary {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 32px;
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+            backdrop-filter: blur(20px);
+        }
+
+        .summary-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+
+        .cart-items {
+            margin-bottom: 24px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-image {
+            width: 60px;
+            height: 60px;
+            background: var(--gray-dark);
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .item-variant {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 8px;
+        }
+
+        .item-price {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .item-quantity {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Order Totals */
+        .order-totals {
+            margin-bottom: 24px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .total-row:last-child {
+            margin-bottom: 0;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .total-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .total-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .total-row:last-child .total-label,
+        .total-row:last-child .total-value {
+            font-size: 18px;
+            color: var(--gold);
+        }
+
+        /* Security Badges */
+        .security-section {
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .security-title {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 16px;
+        }
+
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--success);
+        }
+
+        .security-icon {
+            font-size: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .order-summary {
+                position: relative;
+                top: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 20px 20px;
+            }
+
+            .main-container {
+                padding: 20px;
+            }
+
+            .checkout-form,
+            .order-summary {
+                padding: 24px;
+            }
+
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Confetti Animation */
+        .confetti-particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            animation: confetti-fall 3s linear forwards;
+            pointer-events: none;
+            z-index: 10000;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                opacity: 1;
+                transform: translateY(-100vh) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="queen-lucy-merch-store.html" class="logo">
+                <img src="public/lucy-logo.png" alt="Queen Lucy Logo" style="height: 32px; width: auto;">
+            </a>
+
+            <div class="header-right">
+                <a href="#" onclick="goBack()" class="back-btn">
+                    ← Back to Cart
+                </a>
+                <div class="cart-badge-readonly">
+                    <span id="cartItemCount">0</span> Items
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Checkout Form -->
+        <div class="checkout-section">
+            <!-- Progress Indicator -->
+            <div class="progress-section">
+                <div class="progress-bar">
+                    <div class="progress-step active" id="step1Progress">
+                        <div class="step-circle active" id="step1Circle">1</div>
+                        <div class="step-label">Information</div>
+                    </div>
+                    <div class="progress-connector" id="connector1"></div>
+                    <div class="progress-step" id="step2Progress">
+                        <div class="step-circle" id="step2Circle">2</div>
+                        <div class="step-label">Shipping</div>
+                    </div>
+                    <div class="progress-connector" id="connector2"></div>
+                    <div class="progress-step" id="step3Progress">
+                        <div class="step-circle" id="step3Circle">3</div>
+                        <div class="step-label">Payment</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checkout Form -->
+            <div class="checkout-form">
+                <!-- Step 1: Information -->
+                <div class="form-step active" id="step1">
+                    <h2 class="step-title">Contact Information</h2>
+                    <p class="step-subtitle">We'll use this to keep you updated on your order</p>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" class="form-input" placeholder="queen@example.com" required>
+                        <div class="error-message" id="emailError">Please enter a valid email address</div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" id="firstName" class="form-input" placeholder="Lucy" required>
+                            <div class="error-message" id="firstNameError">First name is required</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" id="lastName" class="form-input" placeholder="Queen" required>
+                            <div class="error-message" id="lastNameError">Last name is required</div>
+                        </div>
+                    </div>
+
+                    <h3 class="step-title" style="margin-top: 32px; font-size: 20px;">Shipping Address</h3>
+
+                    <div class="form-group">
+                        <label for="address" class="form-label">Street Address</label>
+                        <input type="text" id="address" class="form-input" placeholder="123 Throne Street" required>
+                        <div class="error-message" id="addressError">Address is required</div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" id="city" class="form-input" placeholder="Sydney" required>
+                            <div class="error-message" id="cityError">City is required</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="state" class="form-label">State</label>
+                            <input type="text" id="state" class="form-input" placeholder="NSW" required>
+                            <div class="error-message" id="stateError">State is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="postcode" class="form-label">Postcode</label>
+                            <input type="text" id="postcode" class="form-input" placeholder="2000" required>
+                            <div class="error-message" id="postcodeError">Postcode is required</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="country" class="form-label">Country</label>
+                            <input type="text" id="country" class="form-input" value="Australia" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Shipping -->
+                <div class="form-step" id="step2">
+                    <h2 class="step-title">Shipping Method</h2>
+                    <p class="step-subtitle">Choose how you want your royal package delivered</p>
+
+                    <div class="shipping-options">
+                        <div class="shipping-option" data-shipping="standard">
+                            <div class="shipping-header">
+                                <div class="shipping-name">Standard Shipping</div>
+                                <div class="shipping-price">$9.95</div>
+                            </div>
+                            <div class="shipping-description">5-7 business days</div>
+                        </div>
+
+                        <div class="shipping-option" data-shipping="express">
+                            <div class="shipping-header">
+                                <div class="shipping-name">Express Shipping</div>
+                                <div class="shipping-price">$19.95</div>
+                            </div>
+                            <div class="shipping-description">2-3 business days</div>
+                        </div>
+
+                        <div class="shipping-option" data-shipping="overnight">
+                            <div class="shipping-header">
+                                <div class="shipping-name">Overnight Express</div>
+                                <div class="shipping-price">$29.95</div>
+                            </div>
+                            <div class="shipping-description">Next business day delivery</div>
+                        </div>
+
+                        <div class="shipping-option" data-shipping="free">
+                            <div class="shipping-header">
+                                <div class="shipping-name">Free Shipping</div>
+                                <div class="shipping-free-badge">FREE</div>
+                            </div>
+                            <div class="shipping-description">7-10 business days (orders $100+)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Payment -->
+                <div class="form-step" id="step3">
+                    <h2 class="step-title">Payment Method</h2>
+                    <p class="step-subtitle">Secure payment to claim your throne</p>
+
+                    <div class="payment-methods">
+                        <div class="payment-method selected" data-payment="card">
+                            <div class="payment-icon">💳</div>
+                            <div class="payment-name">Credit Card</div>
+                        </div>
+                        <div class="payment-method" data-payment="paypal">
+                            <div class="payment-icon">🅿️</div>
+                            <div class="payment-name">PayPal</div>
+                        </div>
+                        <div class="payment-method" data-payment="apple">
+                            <div class="payment-icon">🍎</div>
+                            <div class="payment-name">Apple Pay</div>
+                        </div>
+                    </div>
+
+                    <div id="cardForm" class="payment-form">
+                        <div class="form-group" style="margin-top: 32px;">
+                            <label for="cardNumber" class="form-label">Card Number</label>
+                            <input type="text" id="cardNumber" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19">
+                            <div class="error-message" id="cardNumberError">Please enter a valid card number</div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiryDate" class="form-label">Expiry Date</label>
+                                <input type="text" id="expiryDate" class="form-input" placeholder="MM/YY" maxlength="5">
+                                <div class="error-message" id="expiryError">Please enter MM/YY format</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv" class="form-label">CVV</label>
+                                <input type="text" id="cvv" class="form-input" placeholder="123" maxlength="4">
+                                <div class="error-message" id="cvvError">Please enter CVV</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cardName" class="form-label">Name on Card</label>
+                            <input type="text" id="cardName" class="form-input" placeholder="Queen Lucy">
+                            <div class="error-message" id="cardNameError">Name on card is required</div>
+                        </div>
+                    </div>
+
+                    <!-- Promo Code Section -->
+                    <div class="promo-section">
+                        <button class="promo-toggle" onclick="togglePromoCode()">Have a promo code?</button>
+                        <div class="promo-form" id="promoForm">
+                            <input type="text" class="form-input promo-input" placeholder="Enter promo code" id="promoCode">
+                            <button class="apply-btn" onclick="applyPromoCode()">Apply</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="step-navigation">
+                    <button class="nav-btn btn-back" id="backBtn" onclick="previousStep()" style="display: none;">
+                        ← Back
+                    </button>
+                    <div></div>
+                    <button class="nav-btn btn-next" id="nextBtn" onclick="nextStep()">
+                        Continue →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Summary Sidebar -->
+        <div class="order-summary">
+            <h3 class="summary-title">Order Summary</h3>
+
+            <div class="cart-items" id="summaryItems">
+                <!-- Cart items will be populated by JavaScript -->
+            </div>
+
+            <div class="order-totals">
+                <div class="total-row">
+                    <span class="total-label">Subtotal</span>
+                    <span class="total-value" id="subtotalValue">$0.00</span>
+                </div>
+                <div class="total-row">
+                    <span class="total-label">Shipping</span>
+                    <span class="total-value" id="shippingValue">$0.00</span>
+                </div>
+                <div class="total-row">
+                    <span class="total-label">Tax (10% GST)</span>
+                    <span class="total-value" id="taxValue">$0.00</span>
+                </div>
+                <div class="total-row">
+                    <span class="total-label">Total</span>
+                    <span class="total-value" id="totalValue">$0.00</span>
+                </div>
+            </div>
+
+            <div class="security-section">
+                <h4 class="security-title">Secure Checkout</h4>
+                <div class="security-badges">
+                    <div class="security-badge">
+                        <span class="security-icon">🔒</span>
+                        <span>SSL Encrypted</span>
+                    </div>
+                    <div class="security-badge">
+                        <span class="security-icon">✓</span>
+                        <span>Verified</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let followerX = 0, followerY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animate() {
+            cursorX += (mouseX - cursorX) * 0.3;
+            cursorY += (mouseY - cursorY) * 0.3;
+
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+
+            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+            follower.style.transform = `translate(${followerX}px, ${followerY}px)`;
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Cursor interactions
+        const interactiveElements = document.querySelectorAll('a, button, .form-input, .shipping-option, .payment-method');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        });
+
+        // Checkout State
+        let currentStep = 1;
+        let formData = {};
+        let selectedShipping = null;
+        let selectedPayment = 'card';
+
+        // Load cart data
+        function loadCartData() {
+            const saved = localStorage.getItem('queenLucyCart');
+            if (saved) {
+                const cartState = JSON.parse(saved);
+                updateOrderSummary(cartState);
+                document.getElementById('cartItemCount').textContent = cartState.count || 0;
+            }
+        }
+
+        // Update order summary
+        function updateOrderSummary(cartState) {
+            const summaryItems = document.getElementById('summaryItems');
+            summaryItems.innerHTML = '';
+
+            if (!cartState.items || cartState.items.length === 0) {
+                summaryItems.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.6);">No items in cart</p>';
+                return;
+            }
+
+            cartState.items.forEach(item => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'cart-item';
+                itemEl.innerHTML = `
+                    <img src="${item.image || 'https://www.figma.com/api/mcp/asset/8901d254-e736-42f1-88fc-531aef5a3d63'}" alt="${item.name}" class="item-image">
+                    <div class="item-details">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-variant">Size: ${item.size || 'M'} • Color: ${item.color || 'Black'}</div>
+                        <div class="item-quantity">Qty: ${item.quantity || 1}</div>
+                        <div class="item-price">$${(item.price || 89).toFixed(2)} AUD</div>
+                    </div>
+                `;
+                summaryItems.appendChild(itemEl);
+            });
+
+            updateTotals(cartState);
+        }
+
+        // Update totals
+        function updateTotals(cartState) {
+            const subtotal = cartState.total || 0;
+            const shippingCost = getShippingCost();
+            const tax = (subtotal + shippingCost) * 0.1;
+            const total = subtotal + shippingCost + tax;
+
+            document.getElementById('subtotalValue').textContent = `$${subtotal.toFixed(2)} AUD`;
+            document.getElementById('shippingValue').textContent = shippingCost === 0 ? 'FREE' : `$${shippingCost.toFixed(2)} AUD`;
+            document.getElementById('taxValue').textContent = `$${tax.toFixed(2)} AUD`;
+            document.getElementById('totalValue').textContent = `$${total.toFixed(2)} AUD`;
+        }
+
+        // Get shipping cost
+        function getShippingCost() {
+            if (!selectedShipping) return 0;
+
+            const costs = {
+                'standard': 9.95,
+                'express': 19.95,
+                'overnight': 29.95,
+                'free': 0
+            };
+
+            return costs[selectedShipping] || 0;
+        }
+
+        // Validation functions
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validateRequired(value) {
+            return value && value.trim().length > 0;
+        }
+
+        function validateCardNumber(number) {
+            const cleaned = number.replace(/\s/g, '');
+            return cleaned.length >= 13 && cleaned.length <= 19 && /^\d+$/.test(cleaned);
+        }
+
+        function validateExpiry(expiry) {
+            const re = /^(0[1-9]|1[0-2])\/\d{2}$/;
+            return re.test(expiry);
+        }
+
+        function validateCVV(cvv) {
+            return /^\d{3,4}$/.test(cvv);
+        }
+
+        // Form validation
+        function validateStep1() {
+            let isValid = true;
+
+            // Email validation
+            const email = document.getElementById('email').value;
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+
+            if (!validateEmail(email)) {
+                emailInput.classList.add('error');
+                emailError.classList.add('show');
+                isValid = false;
+            } else {
+                emailInput.classList.remove('error');
+                emailInput.classList.add('valid');
+                emailError.classList.remove('show');
+            }
+
+            // Required fields
+            const requiredFields = ['firstName', 'lastName', 'address', 'city', 'state', 'postcode'];
+
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                const error = document.getElementById(fieldId + 'Error');
+                const value = field.value;
+
+                if (!validateRequired(value)) {
+                    field.classList.add('error');
+                    error.classList.add('show');
+                    isValid = false;
+                } else {
+                    field.classList.remove('error');
+                    field.classList.add('valid');
+                    error.classList.remove('show');
+                }
+            });
+
+            return isValid;
+        }
+
+        function validateStep2() {
+            return selectedShipping !== null;
+        }
+
+        function validateStep3() {
+            if (selectedPayment === 'card') {
+                let isValid = true;
+
+                const cardNumber = document.getElementById('cardNumber').value;
+                const cardInput = document.getElementById('cardNumber');
+                const cardError = document.getElementById('cardNumberError');
+
+                if (!validateCardNumber(cardNumber)) {
+                    cardInput.classList.add('error');
+                    cardError.classList.add('show');
+                    isValid = false;
+                } else {
+                    cardInput.classList.remove('error');
+                    cardInput.classList.add('valid');
+                    cardError.classList.remove('show');
+                }
+
+                const expiry = document.getElementById('expiryDate').value;
+                const expiryInput = document.getElementById('expiryDate');
+                const expiryError = document.getElementById('expiryError');
+
+                if (!validateExpiry(expiry)) {
+                    expiryInput.classList.add('error');
+                    expiryError.classList.add('show');
+                    isValid = false;
+                } else {
+                    expiryInput.classList.remove('error');
+                    expiryInput.classList.add('valid');
+                    expiryError.classList.remove('show');
+                }
+
+                const cvv = document.getElementById('cvv').value;
+                const cvvInput = document.getElementById('cvv');
+                const cvvError = document.getElementById('cvvError');
+
+                if (!validateCVV(cvv)) {
+                    cvvInput.classList.add('error');
+                    cvvError.classList.add('show');
+                    isValid = false;
+                } else {
+                    cvvInput.classList.remove('error');
+                    cvvInput.classList.add('valid');
+                    cvvError.classList.remove('show');
+                }
+
+                const cardName = document.getElementById('cardName').value;
+                const cardNameInput = document.getElementById('cardName');
+                const cardNameError = document.getElementById('cardNameError');
+
+                if (!validateRequired(cardName)) {
+                    cardNameInput.classList.add('error');
+                    cardNameError.classList.add('show');
+                    isValid = false;
+                } else {
+                    cardNameInput.classList.remove('error');
+                    cardNameInput.classList.add('valid');
+                    cardNameError.classList.remove('show');
+                }
+
+                return isValid;
+            }
+
+            return true;
+        }
+
+        // Step navigation
+        function nextStep() {
+            let canProceed = false;
+
+            if (currentStep === 1) {
+                canProceed = validateStep1();
+            } else if (currentStep === 2) {
+                canProceed = validateStep2();
+            } else if (currentStep === 3) {
+                canProceed = validateStep3();
+                if (canProceed) {
+                    placeOrder();
+                    return;
+                }
+            }
+
+            if (!canProceed) return;
+
+            // Hide current step
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            document.getElementById(`step${currentStep}Progress`).classList.remove('active');
+            document.getElementById(`step${currentStep}Progress`).classList.add('completed');
+            document.getElementById(`step${currentStep}Circle`).classList.remove('active');
+            document.getElementById(`step${currentStep}Circle`).classList.add('completed');
+            document.getElementById(`step${currentStep}Circle`).innerHTML = '✓';
+
+            if (currentStep < 3) {
+                document.getElementById(`connector${currentStep}`).classList.add('completed');
+            }
+
+            // Show next step
+            currentStep++;
+            document.getElementById(`step${currentStep}`).classList.add('active');
+            document.getElementById(`step${currentStep}Progress`).classList.add('active');
+            document.getElementById(`step${currentStep}Circle`).classList.add('active');
+
+            // Update navigation buttons
+            updateNavigationButtons();
+        }
+
+        function previousStep() {
+            if (currentStep <= 1) return;
+
+            // Hide current step
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            document.getElementById(`step${currentStep}Progress`).classList.remove('active');
+            document.getElementById(`step${currentStep}Circle`).classList.remove('active');
+
+            // Show previous step
+            currentStep--;
+            document.getElementById(`step${currentStep}`).classList.add('active');
+            document.getElementById(`step${currentStep}Progress`).classList.add('active');
+            document.getElementById(`step${currentStep}Progress`).classList.remove('completed');
+            document.getElementById(`step${currentStep}Circle`).classList.add('active');
+            document.getElementById(`step${currentStep}Circle`).classList.remove('completed');
+            document.getElementById(`step${currentStep}Circle`).innerHTML = currentStep;
+
+            if (currentStep < 3) {
+                document.getElementById(`connector${currentStep}`).classList.remove('completed');
+            }
+
+            updateNavigationButtons();
+        }
+
+        function updateNavigationButtons() {
+            const backBtn = document.getElementById('backBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            if (currentStep === 1) {
+                backBtn.style.display = 'none';
+            } else {
+                backBtn.style.display = 'flex';
+            }
+
+            if (currentStep === 3) {
+                nextBtn.innerHTML = '★ PLACE ORDER ★';
+                nextBtn.classList.remove('btn-next');
+                nextBtn.classList.add('btn-place-order');
+            } else {
+                nextBtn.innerHTML = 'Continue →';
+                nextBtn.classList.remove('btn-place-order');
+                nextBtn.classList.add('btn-next');
+            }
+        }
+
+        // Shipping selection
+        document.querySelectorAll('.shipping-option').forEach(option => {
+            option.addEventListener('click', () => {
+                // Remove previous selection
+                document.querySelectorAll('.shipping-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+
+                // Add selection
+                option.classList.add('selected');
+                selectedShipping = option.dataset.shipping;
+
+                // Update totals
+                const saved = localStorage.getItem('queenLucyCart');
+                if (saved) {
+                    updateTotals(JSON.parse(saved));
+                }
+            });
+        });
+
+        // Payment method selection
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', () => {
+                // Remove previous selection
+                document.querySelectorAll('.payment-method').forEach(meth => {
+                    meth.classList.remove('selected');
+                });
+
+                // Add selection
+                method.classList.add('selected');
+                selectedPayment = method.dataset.payment;
+
+                // Show/hide card form
+                const cardForm = document.getElementById('cardForm');
+                if (selectedPayment === 'card') {
+                    cardForm.style.display = 'block';
+                } else {
+                    cardForm.style.display = 'none';
+                }
+            });
+        });
+
+        // Input formatting
+        document.getElementById('cardNumber').addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\s/g, '');
+            let formatted = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formatted;
+        });
+
+        document.getElementById('expiryDate').addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            e.target.value = value;
+        });
+
+        document.getElementById('cvv').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\D/g, '');
+        });
+
+        // Promo code functions
+        function togglePromoCode() {
+            const promoForm = document.getElementById('promoForm');
+            promoForm.classList.toggle('show');
+        }
+
+        function applyPromoCode() {
+            const code = document.getElementById('promoCode').value.toUpperCase();
+
+            // Example promo codes
+            const promoCodes = {
+                'QUEEN10': 10,
+                'LUCY20': 20,
+                'ROYAL15': 15
+            };
+
+            if (promoCodes[code]) {
+                alert(`Promo code applied! ${promoCodes[code]}% discount`);
+                // Apply discount logic here
+            } else {
+                alert('Invalid promo code');
+            }
+        }
+
+        // Confetti function
+        function createConfetti() {
+            const colors = ['#ec4899', '#FFD700', '#8B00FF', '#00F0FF'];
+
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-particle';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        // Place order function
+        function placeOrder() {
+            // Show loading state
+            const nextBtn = document.getElementById('nextBtn');
+            const originalText = nextBtn.innerHTML;
+            nextBtn.innerHTML = 'PLACING ORDER...';
+            nextBtn.disabled = true;
+
+            // Simulate order processing
+            setTimeout(() => {
+                // Create confetti
+                createConfetti();
+
+                // Clear cart
+                localStorage.removeItem('queenLucyCart');
+
+                // Redirect to order confirmation
+                window.location.href = 'order-confirmation.html?order=' + generateOrderNumber();
+            }, 2000);
+        }
+
+        function generateOrderNumber() {
+            return 'QL' + Date.now().toString().slice(-8);
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        // Initialize
+        loadCartData();
+    </script>
+</body>
+</html>
