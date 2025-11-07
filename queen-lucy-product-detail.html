@@ -1191,6 +1191,33 @@
                 opacity: 0;
             }
         }
+
+        /* Phase-specific visibility */
+        .prelaunch-only {
+            display: block;
+        }
+
+        .drop-only,
+        .ended-only {
+            display: none;
+        }
+
+        .phase-live-drop .prelaunch-only {
+            display: none;
+        }
+
+        .phase-live-drop .drop-only {
+            display: block;
+        }
+
+        .phase-drop-ended .prelaunch-only,
+        .phase-drop-ended .drop-only {
+            display: none;
+        }
+
+        .phase-drop-ended .ended-only {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -1295,23 +1322,39 @@
                 </div>
             </div>
             
-            <!-- Countdown Timer -->
-            <div class="countdown-timer">
-                <div class="countdown-label">⚡ DROP ENDS IN ⚡</div>
+            <!-- Countdown Timer - Drop Phase Only -->
+            <div class="countdown-timer drop-only countdown-drop">
+                <div class="countdown-label countdown-title">⚡ DROP ENDS IN ⚡</div>
                 <div class="countdown-numbers">
-                    <div class="countdown-unit">
-                        <span class="countdown-value" id="hours">23</span>
+                    <div class="countdown-unit countdown-days">
+                        <span class="countdown-value">00</span>
+                        <span class="countdown-unit-label">DAYS</span>
+                    </div>
+                    <div class="countdown-unit countdown-hours">
+                        <span class="countdown-value">00</span>
                         <span class="countdown-unit-label">HRS</span>
                     </div>
-                    <div class="countdown-unit">
-                        <span class="countdown-value" id="minutes">45</span>
+                    <div class="countdown-unit countdown-minutes">
+                        <span class="countdown-value">00</span>
                         <span class="countdown-unit-label">MIN</span>
                     </div>
-                    <div class="countdown-unit">
-                        <span class="countdown-value" id="seconds">32</span>
+                    <div class="countdown-unit countdown-seconds">
+                        <span class="countdown-value">00</span>
                         <span class="countdown-unit-label">SEC</span>
                     </div>
                 </div>
+            </div>
+
+            <!-- Pre-launch Message -->
+            <div class="countdown-timer prelaunch-only" style="background: rgba(107, 114, 128, 0.1); border-color: #6b7280;">
+                <div class="countdown-label" style="color: #6b7280;">⏰ DYNASTY NOT YET ACTIVE</div>
+                <p style="color: rgba(255, 255, 255, 0.7); margin: 8px 0 0 0; font-size: 14px;">This drop hasn't started yet. Sign up for notifications!</p>
+            </div>
+
+            <!-- Drop Ended Message -->
+            <div class="countdown-timer ended-only" style="background: rgba(107, 114, 128, 0.1); border-color: #6b7280;">
+                <div class="countdown-label" style="color: #6b7280;">💀 THIS DROP HAS ENDED</div>
+                <p style="color: rgba(255, 255, 255, 0.7); margin: 8px 0 0 0; font-size: 14px;">You missed this legendary drop. Stay tuned for the next one!</p>
             </div>
             
             <!-- Color Selector -->
@@ -1813,6 +1856,51 @@
         // Show notification every 8 seconds
         setInterval(showNotification, 8000);
         setTimeout(showNotification, 2000); // First one after 2 seconds
+    </script>
+
+    <!-- Launch System Integration -->
+    <script src="js/launch-system.js"></script>
+    <script>
+        // Initialize Queen Lucy Launch System for product pages
+        let launchSystem = null;
+
+        // Wait for launch system to load
+        setTimeout(() => {
+            if (window.QueenLucyLaunchSystem) {
+                launchSystem = new window.QueenLucyLaunchSystem();
+                console.log('👑 Launch system initialized for product page!');
+            }
+        }, 100);
+
+        // Listen for launch phase changes
+        window.addEventListener('queenLucyPhaseChange', (event) => {
+            console.log('Phase changed:', event.detail.phase);
+            // Page will automatically show/hide elements based on phase classes
+        });
+
+        // Add admin shortcuts for testing
+        document.addEventListener('keydown', (e) => {
+            // Ctrl + Shift + A opens admin dashboard
+            if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+                window.location.href = 'admin-dashboard.html';
+            }
+
+            // Secret admin functions for testing launch system
+            if (e.ctrlKey && e.shiftKey && e.key === 'L' && launchSystem) {
+                // Ctrl + Shift + L: Schedule launch in 30 seconds (for testing)
+                const testLaunchTime = Date.now() + 30000;
+                launchSystem.setLaunchTime(testLaunchTime);
+                console.log('🧪 Test launch scheduled for 30 seconds from now!');
+                location.reload();
+            }
+
+            if (e.ctrlKey && e.shiftKey && e.key === 'R' && launchSystem) {
+                // Ctrl + Shift + R: Reset launch system
+                launchSystem.resetLaunch();
+                console.log('🔄 Launch system reset!');
+                location.reload();
+            }
+        });
     </script>
 
     <!-- Cart Sidebar -->

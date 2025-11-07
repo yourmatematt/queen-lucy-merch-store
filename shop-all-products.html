@@ -1042,5 +1042,42 @@
 
     <!-- Shopify API Integration -->
     <script src="js/shopify-api.js"></script>
+    <script src="js/launch-system.js"></script>
+    <script>
+        // Initialize Queen Lucy Launch System for shop all page
+        let launchSystem = null;
+
+        // Wait for launch system to load
+        setTimeout(() => {
+            if (window.QueenLucyLaunchSystem) {
+                launchSystem = new window.QueenLucyLaunchSystem();
+                console.log('👑 Launch system initialized for shop all page!');
+            }
+        }, 100);
+
+        // Add admin shortcuts for testing
+        document.addEventListener('keydown', (e) => {
+            // Ctrl + Shift + A opens admin dashboard
+            if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+                window.location.href = 'admin-dashboard.html';
+            }
+
+            // Secret admin functions for testing launch system
+            if (e.ctrlKey && e.shiftKey && e.key === 'L' && launchSystem) {
+                // Ctrl + Shift + L: Schedule launch in 30 seconds (for testing)
+                const testLaunchTime = Date.now() + 30000;
+                launchSystem.setLaunchTime(testLaunchTime);
+                console.log('🧪 Test launch scheduled for 30 seconds from now!');
+                location.reload();
+            }
+
+            if (e.ctrlKey && e.shiftKey && e.key === 'R' && launchSystem) {
+                // Ctrl + Shift + R: Reset launch system
+                launchSystem.resetLaunch();
+                console.log('🔄 Launch system reset!');
+                location.reload();
+            }
+        });
+    </script>
 </body>
 </html>
